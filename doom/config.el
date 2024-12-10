@@ -83,7 +83,6 @@
 ;; Enable org-alert for notifications
 (use-package! org-alert
   :ensure t)
-
 ;; Org-roam node display customization
 (setq org-roam-node-display-template
       (concat "${title:*} "
@@ -113,6 +112,14 @@
           ("s" "series" plain "* About\n - Director: \n - Total Episodes: \n - Personal Rating:\n"
            :target (file+head "series/${slug}.org"
                               "#+title: ${title}\n#+filetags: series\n\n")
+           :unnarrowed t)
+          ("w" "writings" plain "%?"
+           :target (file+head "writings/${slug}.org"
+                              "#+title: ${title}\n#+filetags: writings\n\n")
+           :unnarrowed t)
+          ("u" "uni" plain "%?"
+           :target (file+head "uni/${slug}.org"
+                              "#+title: ${title}\n#+filetags: uni\n\n")
            :unnarrowed t)))
 
   ;; Enable Org-roam database autosync

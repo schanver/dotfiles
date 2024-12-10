@@ -4,7 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
-   '("~/org/roam/todolist.org" "/home/mfs/org/roam/daily/2024-12-08.org")))
+   '("~/org/roam/daily/2024-12-09.org" "/home/mfs/org/roam/uni/prml.org" "/home/mfs/org/roam/uni/rvs.org" "/home/mfs/org/roam/uni/swk.org" "/home/mfs/org/roam/uni/get_1.org" "/home/mfs/org/roam/todolist.org" "/home/mfs/org/roam/daily/2024-12-08.org")))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
