@@ -240,7 +240,7 @@ bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 bindsym $mod+p exec --no-startup-id /usr/local/bin/switch-audio-port
 
 ## App shortcuts
-bindsym $mod+o exec --no-startup-id kitty -e nvim ~/Documents/MyVault
+bindsym $mod+o exec --no-startup-id kitty -e zsh -c "cd ~/org/roam/ && exec zsh"
 bindsym $mod+w exec --no-startup-id /usr/bin/firefox
 bindsym $mod+n exec --no-startup-id rofi -config ~/.config/rofi/todo.rasi -modi Todo:~/.config/rofi/rofitodo.sh -show Todo
 bindsym $mod+Shift+p exec --no-startup-id ~/.config/i3/scripts/power-profiles
