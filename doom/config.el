@@ -75,7 +75,9 @@
 ;; Enable treemacs integration with projectile
 (use-package! treemacs-projectile
   :after (treemacs projectile))
-
+(use-package! org-fragtog
+  :ensure t)
+(add-hook 'org-mode-hook 'org-fragtog-mode)
 ;; Automatically enable big font mode after startup
 ;;(add-hook 'window-setup-hook #'doom-big-font-mode)
 
@@ -152,3 +154,6 @@
       :desc "Yesterday"        "y" #'org-roam-dailies-capture-yesterday
       :desc "Tomorrow"         "m" #'org-roam-dailies-capture-tomorrow
       :desc "Daily directory"  "D" #'org-roam-dailies-find-directory)
+;; Bigger LaTex previews
+(setq org-format-latex-options
+      (plist-put org-format-latex-options :scale 2.0))
