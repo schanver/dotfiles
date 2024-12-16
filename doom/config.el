@@ -144,7 +144,7 @@
       :desc "Insert node"      "i" #'org-roam-node-insert
       :desc "Add tag"          "t" #'org-roam-tag-add
       :desc "Remove tag"       "T" #'org-roam-tag-remove
-      :desc "Show graph"       "g" #'org-roam-ui-open
+      :desc "Show graph"       "g" #'org-roam-ui-mode
       :desc "Toggle buffer"    "l" #'org-roam-buffer-toggle
       :desc "Capture template" "c" #'org-roam-capture
       ;; Daily notes
@@ -152,3 +152,6 @@
       :desc "Yesterday"        "y" #'org-roam-dailies-capture-yesterday
       :desc "Tomorrow"         "m" #'org-roam-dailies-capture-tomorrow
       :desc "Daily directory"  "D" #'org-roam-dailies-find-directory)
+
+(map! :leader
+      :desc "Open the terminal" "v" #'vterm)
