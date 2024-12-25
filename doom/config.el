@@ -132,7 +132,7 @@
     :after org-roam)
 (use-package! org-roam-ui
   :after org-roam
-  :hook (org-roam-mode . org-roam-ui-mode)
+  :hook (org-roam-mode . org-roam-ui-open)
   :config
   (setq org-roam-ui-sync-theme t
         org-roam-ui-follow t

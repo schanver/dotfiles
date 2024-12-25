@@ -275,6 +275,7 @@ for_window[class=TelegramDesktop] move container to workspace $ws9
 for_window[class=Spotify] move container to workspace $ws10
 for_window[class=(?i)anki] move container to workspace $ws4
 for_window[class=kitty] focus
+for_window[class=emacs] move container to workspace $ws2
 ##############
 # compositor #
 ##############
