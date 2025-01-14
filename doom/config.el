@@ -81,6 +81,7 @@
 ;; Automatically enable big font mode after startup
 ;;(add-hook 'window-setup-hook #'doom-big-font-mode)
 
+(add-hook 'org-mode-hook 'org-display-inline-images)
 
 ;; Enable org-alert for notifications
 (use-package! org-alert
