@@ -105,11 +105,11 @@
            :target (file+head "${slug}.org"
                               "#+title: ${title}\n#+date: %U\n\n")
            :unnarrowed t)
-          ("b" "books" plain "* About\n ** Author: ${author}\n** Personal Rating:\n %?  "
+          ("b" "books" plain "%?"
            :target (file+head "books/${slug}.org"
                               "#+title: ${title}\n#+filetags: books\n\n")
            :unnarrowed t)
-          ("s" "series" plain "* About\n** Director: \n** Total Episodes: \n** Personal Rating:\n"
+          ("s" "series" plain "%?"
            :target (file+head "series/${slug}.org"
                               "#+title: ${title}\n#+filetags: series\n\n")
            :unnarrowed t)
@@ -155,3 +155,5 @@
 
 (map! :leader
       :desc "Open the terminal" "v" #'vterm)
+
+(setq org-download-image-dir "~/Pictures/doom/")

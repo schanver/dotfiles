@@ -311,7 +311,7 @@ exec --no-startup-id dex --autostart --environment i3
 # uncomment the next line, use arandr to setup displays and save the file as monitor:
 # set wallpaper
 # exec --no-startup-id sleep 2 && nitrogen --restore
-exec_always --no-startup-id sleep 1 && feh --bg-fill $HOME/.config/sfondo.jpg
+#exec_always --no-startup-id sleep 1 && feh --bg-fill $HOME/.config/sfondo.jpg
 
 exec --no-startup-id /usr/bin/dunst
 ##################
@@ -358,7 +358,7 @@ client.background       #F8F8F2
 # bar settings (input comes from i3blocks) #
 ############################################
 bar {
-  status_command i3status -c ~/.config/i3status/config
+  status_command i3blocks -c ~/.config/i3/i3blocks.conf
   position top 
   mode dock
   #i3bar_command i3bar --transparency
