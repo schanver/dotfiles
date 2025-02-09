@@ -82,7 +82,7 @@
 ;;(add-hook 'window-setup-hook #'doom-big-font-mode)
 
 (add-hook 'org-mode-hook 'org-display-inline-images)
-
+(setq org-download-image-dir "~/org/roam/attachments/")
 ;; Enable org-alert for notifications
 (use-package! org-alert
   :ensure t)
@@ -108,11 +108,11 @@
            :target (file+head "${slug}.org"
                               "#+title: ${title}\n#+date: %U\n\n")
            :unnarrowed t)
-          ("b" "books" plain "* About\n - Author: ${author}\n -Total Pages: ${Total Pages}\n -Start Date: %?  "
+          ("b" "books" plain "%?"
            :target (file+head "books/${slug}.org"
                               "#+title: ${title}\n#+filetags: books\n\n")
            :unnarrowed t)
-          ("s" "series" plain "* About\n - Director: \n - Total Episodes: \n - Personal Rating:\n"
+          ("s" "series" plain "%?"
            :target (file+head "series/${slug}.org"
                               "#+title: ${title}\n#+filetags: series\n\n")
            :unnarrowed t)
@@ -121,8 +121,7 @@
                               "#+title: ${title}\n#+filetags: writings\n\n")
            :unnarrowed t)
           ("u" "uni" plain "%?"
-           :target (file+head "uni/${slug}.org"
-                              "#+title: ${title}\n#+filetags: uni\n\n")
+           :target (file+head "uni/${slug}.org" "#+title: ${title}\n#+filetags: uni\n")
            :unnarrowed t)))
 
   ;; Enable Org-roam database autosync
