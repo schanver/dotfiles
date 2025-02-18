@@ -7,7 +7,7 @@ font pango: FiraCode Nerd Font medium 14
 # set the mod key to the winkey:
 set $mod Mod4
 
-exec_always --no-startup-id xrandr --output HDMI-A-0 --mode 2560x1440
+exec_always --no-startup-id xrandr --output eDP-1 --off && xrandr --output HDMI-A-0 --mode 2560x1440
 
 #####################
 # workspace layout: #
@@ -311,13 +311,13 @@ exec --no-startup-id dex --autostart --environment i3
 # uncomment the next line, use arandr to setup displays and save the file as monitor:
 # set wallpaper
 # exec --no-startup-id sleep 2 && nitrogen --restore
-#exec_always --no-startup-id sleep 1 && feh --bg-fill $HOME/.config/sfondo.jpg
+exec_always --no-startup-id sleep 1 && feh --bg-fill $HOME/Pictures/wallpaper/skeleton_Army.png
 
 exec --no-startup-id /usr/bin/dunst
 ##################
 # floating rules #
 ##################
-floating_minimum_size 1800 x 1200 
+floating_minimum_size 800 x  600
 #floating_maximum_size 1200 x 1200
 # set floating (nontiling) for apps needing it
 
