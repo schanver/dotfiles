@@ -151,7 +151,7 @@
       :desc "Insert node"      "i" #'org-roam-node-insert
       :desc "Add tag"          "t" #'org-roam-tag-add
       :desc "Remove tag"       "T" #'org-roam-tag-remove
-      :desc "Show graph"       "g" #'org-roam-ui-open
+      :desc "Show graph"       "g" #'org-roam-ui-mode
       :desc "Toggle buffer"    "l" #'org-roam-buffer-toggle
       :desc "Capture template" "c" #'org-roam-capture
       ;; Daily notes
@@ -162,3 +162,8 @@
 ;; Bigger LaTex previews
 (setq org-format-latex-options
       (plist-put org-format-latex-options :scale 2.0))
+
+(map! :leader
+      :desc "Open the terminal" "v" #'vterm)
+
+(setq org-download-image-dir "~/Pictures/doom/")
