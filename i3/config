@@ -8,6 +8,7 @@ font pango: FiraCode Nerd Font medium 14
 set $mod Mod4
 
 exec_always --no-startup-id xrandr --output HDMI-A-0 --mode 2560x1440
+exec_always --no-startup-id xrandr --output eDP-1 --off && xrandr --output HDMI-1 --mode 2560x1440
 
 #####################
 # workspace layout: #

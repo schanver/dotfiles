@@ -37,6 +37,7 @@
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
+(setq doom-font (font-spec :family "IosevkaNFM" :size 24))
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -115,6 +116,10 @@
           ("s" "series" plain "%?"
            :target (file+head "series/${slug}.org"
                               "#+title: ${title}\n#+filetags: series\n\n")
+           :unarrowed t)
+          ("p" "programming" plain "%?"
+           :target (file+head "programming/${slug}.org"
+                              "#+title: ${title}\n#+filetags: programming\n\n")
            :unnarrowed t)
           ("w" "writings" plain "%?"
            :target (file+head "writings/${slug}.org"
