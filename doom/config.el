@@ -167,3 +167,28 @@
       :desc "Open the terminal" "v" #'vterm)
 
 (setq org-download-image-dir "~/Pictures/doom/")
+(defun my/org-agenda-deadline-countdown ()
+  (let* ((tags '("klausur" "aufgabe"))
+         (today (current-time))
+         (max-days 30)
+         (items '()))
+(org-map-entries
+     (lambda ()
+       (let ((tags-list (org-get-tags))
+             (deadline (org-entry-get nil "DEADLINE")))
+         (when (and deadline (cl-intersection tags tags-list :test #'string=))
+           (let* ((deadline-time (org-time-string-to-time deadline))
+                  (days-left (floor (/ (float-time (time-subtract deadline-time today)) 86400))))
+             (when (and (>= days-left 0) (<= days-left max-days))
+               (let ((heading (org-get-heading t t t t)))
+                 (push (format "%s in %d day(s)" heading days-left) items)))))))
+     nil 'agenda)
+    (if items
+        (concat "⏳ Deadlines (next 30 days):\n" (string-join (sort items #'string<) "\n"))
+      "No upcoming deadlines within 30 days for exams or assignments.")))
+(setq org-agenda-custom-commands
+      '(("w" "Weekly Agenda with Countdown"
+         ((agenda "" ((org-agenda-span 'week)
+                      (org-agenda-overriding-header
+                       (concat (my/org-agenda-deadline-countdown) "\n\n"))))
+          (alltodo "")))))
