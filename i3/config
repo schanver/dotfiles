@@ -29,7 +29,7 @@ gaps outer 0
 
 #for inserting password
 exec --no-startup-id /usr/lib/polkit-kde-authentication-agent-1
-exec --no-startup-id xss-lock -- ~/.config/i3/lock.sh
+exec_always --no-startup-id xss-lock -- ~/.config/i3/lock.sh
 
 # show window title bars (not officially supported with i3gaps)
 #default_border normal
@@ -361,11 +361,11 @@ client.background       #F8F8F2
 # bar settings (input comes from i3blocks) #
 ############################################
  bar {
-  status_command i3status -c ~/.config/i3status/config
+  status_command i3blocks -c ~/.config/i3/i3blocks.conf
   position top 
   mode dock
   #i3bar_command i3bar --transparency
-  tray_output eDP
+  tray_output HDMI-1
 }
 
 bindsym $mod+m bar mode invisible
