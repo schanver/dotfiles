@@ -145,7 +145,7 @@
       :desc "Insert node"      "i" #'org-roam-node-insert
       :desc "Add tag"          "t" #'org-roam-tag-add
       :desc "Remove tag"       "T" #'org-roam-tag-remove
-      :desc "Show graph"       "g" #'org-roam-ui-mode
+      :desc "Show graph"       "g" #'org-roam-ui-open
       :desc "Toggle buffer"    "l" #'org-roam-buffer-toggle
       :desc "Capture template" "c" #'org-roam-capture
       ;; Daily notes
