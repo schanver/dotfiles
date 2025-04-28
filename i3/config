@@ -7,7 +7,8 @@ font pango: FiraCode Nerd Font medium 14
 # set the mod key to the winkey:
 set $mod Mod4
 
-exec_always --no-startup-id xrandr --output eDP-1 --off && xrandr --output HDMI-A-0 --mode 2560x1440
+exec_always --no-startup-id xrandr --output HDMI-A-0 --mode 2560x1440
+exec_always --no-startup-id xrandr --output eDP-1 --off && xrandr --output HDMI-1 --mode 2560x1440
 
 #####################
 # workspace layout: #
@@ -245,6 +246,7 @@ bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 bindsym $mod+p exec --no-startup-id /usr/local/bin/switch-audio-port
 
 ## App shortcuts
+bindsym $mod+e exec --no-startup-id emacs
 bindsym $mod+o exec --no-startup-id kitty -e zsh -c "cd ~/org/roam/ && exec zsh"
 bindsym $mod+w exec --no-startup-id /usr/bin/firefox
 bindsym $mod+n exec --no-startup-id rofi -config ~/.config/rofi/todo.rasi -modi Todo:~/.config/rofi/rofitodo.sh -show Todo
@@ -279,6 +281,7 @@ for_window[class=TelegramDesktop] move container to workspace $ws9
 for_window[class=Spotify] move container to workspace $ws10
 for_window[class=(?i)anki] move container to workspace $ws4
 for_window[class=kitty] focus
+for_window[class=emacs] move container to workspace $ws2
 ##############
 # compositor #
 ##############
@@ -362,12 +365,12 @@ client.background       #F8F8F2
 ############################################
 # bar settings (input comes from i3blocks) #
 ############################################
-bar {
+ bar {
   status_command i3blocks -c ~/.config/i3/i3blocks.conf
   position top 
   mode dock
   #i3bar_command i3bar --transparency
-  tray_output eDP
+  tray_output HDMI-1
 }
 
 bindsym $mod+m bar mode invisible

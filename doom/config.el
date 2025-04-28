@@ -37,7 +37,7 @@
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
-(setq doom-font (font-spec :family "IosevkaNFM" :size 22))
+(setq doom-font (font-spec :family "IosevkaNFM" :size 24))
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -76,11 +76,14 @@
 ;; Enable treemacs integration with projectile
 (use-package! treemacs-projectile
   :after (treemacs projectile))
-
+(use-package! org-fragtog
+  :ensure t)
+(add-hook 'org-mode-hook 'org-fragtog-mode)
 ;; Automatically enable big font mode after startup
 ;;(add-hook 'window-setup-hook #'doom-big-font-mode)
 
-
+(add-hook 'org-mode-hook 'org-display-inline-images)
+(setq org-download-image-dir "~/org/roam/attachments/")
 ;; Enable org-alert for notifications
 (use-package! org-alert
   :ensure t)
@@ -113,14 +116,17 @@
           ("s" "series" plain "%?"
            :target (file+head "series/${slug}.org"
                               "#+title: ${title}\n#+filetags: series\n\n")
+           :unarrowed t)
+          ("p" "programming" plain "%?"
+           :target (file+head "programming/${slug}.org"
+                              "#+title: ${title}\n#+filetags: programming\n\n")
            :unnarrowed t)
           ("w" "writings" plain "%?"
            :target (file+head "writings/${slug}.org"
                               "#+title: ${title}\n#+filetags: writings\n\n")
            :unnarrowed t)
           ("u" "uni" plain "%?"
-           :target (file+head "uni/${slug}.org"
-                              "#+title: ${title}\n#+filetags: uni\n\n")
+           :target (file+head "uni/${slug}.org" "#+title: ${title}\n#+filetags: uni\n")
            :unnarrowed t)))
 
   ;; Enable Org-roam database autosync
@@ -131,7 +137,7 @@
     :after org-roam)
 (use-package! org-roam-ui
   :after org-roam
-  :hook (org-roam-mode . org-roam-ui-mode)
+  :hook (org-roam-mode . org-roam-ui-open)
   :config
   (setq org-roam-ui-sync-theme t
         org-roam-ui-follow t
@@ -153,8 +159,36 @@
       :desc "Yesterday"        "y" #'org-roam-dailies-capture-yesterday
       :desc "Tomorrow"         "m" #'org-roam-dailies-capture-tomorrow
       :desc "Daily directory"  "D" #'org-roam-dailies-find-directory)
+;; Bigger LaTex previews
+(setq org-format-latex-options
+      (plist-put org-format-latex-options :scale 2.0))
 
 (map! :leader
       :desc "Open the terminal" "v" #'vterm)
 
 (setq org-download-image-dir "~/Pictures/doom/")
+(defun my/org-agenda-deadline-countdown ()
+  (let* ((tags '("klausur" "aufgabe"))
+         (today (current-time))
+         (max-days 30)
+         (items '()))
+(org-map-entries
+     (lambda ()
+       (let ((tags-list (org-get-tags))
+             (deadline (org-entry-get nil "DEADLINE")))
+         (when (and deadline (cl-intersection tags tags-list :test #'string=))
+           (let* ((deadline-time (org-time-string-to-time deadline))
+                  (days-left (floor (/ (float-time (time-subtract deadline-time today)) 86400))))
+             (when (and (>= days-left 0) (<= days-left max-days))
+               (let ((heading (org-get-heading t t t t)))
+                 (push (format "%s in %d day(s)" heading days-left) items)))))))
+     nil 'agenda)
+    (if items
+        (concat "⏳ Deadlines (next 30 days):\n" (string-join (sort items #'string<) "\n"))
+      "No upcoming deadlines within 30 days for exams or assignments.")))
+(setq org-agenda-custom-commands
+      '(("w" "Weekly Agenda with Countdown"
+         ((agenda "" ((org-agenda-span 'week)
+                      (org-agenda-overriding-header
+                       (concat (my/org-agenda-deadline-countdown) "\n\n"))))
+          (alltodo "")))))
