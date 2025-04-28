@@ -318,7 +318,7 @@ exec --no-startup-id dex --autostart --environment i3
 # uncomment the next line, use arandr to setup displays and save the file as monitor:
 # set wallpaper
 # exec --no-startup-id sleep 2 && nitrogen --restore
-exec_always --no-startup-id sleep 1 && feh --bg-fill $HOME/Pictures/wallpaper/skeleton_Army.png
+exec_always --no-startup-id ~/.scripts/change_wallpaper
 
 exec --no-startup-id /usr/bin/dunst
 ##################
