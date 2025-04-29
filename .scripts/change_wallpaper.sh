@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 WALLPAPER_DIR="$HOME/Pictures/wallpapers"
 
@@ -15,4 +15,7 @@ if [[ -z "$random_wallpaper" ]]; then
 fi
 
 echo "Selected wallpaper: $random_wallpaper"
-feh --bg-scale $random_wallpaper
+#feh --bg-scale $random_wallpaper
+wal -i $random_wallpaper 
+
+fastfetch

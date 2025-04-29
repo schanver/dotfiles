@@ -8,6 +8,7 @@
     "kernel",
     "uptime",
     "packages",
+    "display",
     "shell",
     "wm",
     "terminal",
