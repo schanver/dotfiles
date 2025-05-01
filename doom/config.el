@@ -193,3 +193,7 @@
                       (org-agenda-overriding-header
                        (concat (my/org-agenda-deadline-countdown) "\n\n"))))
           (alltodo "")))))
+(after! org
+  (setq org-habit-graph-column 60
+  org-habit-preceeing-days 7
+  org-habit-following-days 7))

@@ -25,8 +25,8 @@ if [ $pluto -eq "0" ];then
 # 5min = 300s
 
 # In secondi
-work_time=2400
-break_time=1200
+work_time=2700
+break_time=900
 
 msg_start=" Pomodoro"
 work_prefix=" "
