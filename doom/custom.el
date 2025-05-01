@@ -4,9 +4,13 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
-   '("~/org/roam/uni/bis.org" "/home/mfs/org/roam/daily/2025-01-07.org" "/home/mfs/org/roam/uni/prml.org" "/home/mfs/org/roam/uni/rvs.org" "/home/mfs/org/roam/uni/swk.org" "/home/mfs/org/roam/uni/get_1.org" "/home/mfs/org/roam/todolist.org" "/home/mfs/org/roam/daily/2024-12-08.org" "/home/mfs/org/roam/daily/2024-12-09.org" "/home/mfs/org/roam/daily/2024-12-12.org" "/home/mfs/org/roam/daily/2024-12-13.org" "/home/mfs/org/roam/daily/2024-12-14.org" "/home/mfs/org/roam/daily/2024-12-16.org" "/home/mfs/org/roam/daily/2024-12-17.org" "/home/mfs/org/roam/daily/2024-12-20.org" "/home/mfs/org/roam/daily/2024-12-21.org" "/home/mfs/org/roam/daily/2024-12-22.org" "/home/mfs/org/roam/daily/2024-12-25.org" "/home/mfs/org/roam/daily/2024-12-26.org" "/home/mfs/org/roam/daily/2024-12-31.org" "/home/mfs/org/roam/daily/2025-01-01.org" "/home/mfs/org/roam/daily/2025-01-03.org"))
+   '("~/org/roam/uni/tim.org" "/home/f/org/roam/uni/etkt.org"
+     "/home/f/org/roam/uni/ubersetzerbau.org" "/home/f/org/roam/uni/bs.org"
+     "/home/f/org/roam/uni/fupro.org" "/home/f/org/roam/uni/mafi2.org"
+     "/home/f/org/roam/uni/ss25.org"))
  '(package-selected-packages
-   '(org-fragtog pdf-tools org-roam-ui org-modern org-alert olivetti focus all-the-icons)))
+   '(org-fragtog pdf-tools org-roam-ui org-modern org-alert olivetti focus
+     all-the-icons)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

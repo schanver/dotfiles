@@ -1,4 +1,4 @@
-
+;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
@@ -31,7 +31,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-gruvbox)
+(setq doom-theme 'doom-spacegrey)
 
 ;;(setq doom-big-font (font-spec :family "Hack" :size 25))
 ;; This determines the style of line numbers in effect. If set to `nil', line
@@ -145,6 +145,7 @@
         org-roam-ui-open-on-start t))
 
 ;; Keybindings for Org-roam
+(after! org-roam
 (map! :leader
       :prefix "n r"
       :desc "Find node"        "f" #'org-roam-node-find
@@ -158,7 +159,7 @@
       :desc "Today"            "d" #'org-roam-dailies-capture-today
       :desc "Yesterday"        "y" #'org-roam-dailies-capture-yesterday
       :desc "Tomorrow"         "m" #'org-roam-dailies-capture-tomorrow
-      :desc "Daily directory"  "D" #'org-roam-dailies-find-directory)
+      :desc "Daily directory"  "D" #'org-roam-dailies-find-directory))
 ;; Bigger LaTex previews
 (setq org-format-latex-options
       (plist-put org-format-latex-options :scale 2.0))
