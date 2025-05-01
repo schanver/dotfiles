@@ -155,7 +155,6 @@ bindsym $mod+q kill
 
 # exit-menu
 bindsym $mod+Shift+e exec --no-startup-id ~/.config/i3/scripts/powermenu
-bindsym ctrl+$mod+l exec --no-startup-id sleep 1 && xset dpms force suspend
 # Lock the system
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -169,11 +168,12 @@ bindsym XF86MonBrightnessUp exec --no-startup-id ~/.config/i3/scripts/volume_bri
 bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/scripts/volume_brightness.sh brightness_down
 
 #------Disable Touchpad-------#
-bindsym $mod+minus  exec --no-startup-id "xinput disable 12" 
-bindsym $mod+plus   exec --no-startup-id "xinput enable 12" 
+#bindsym $mod+minus  exec --no-startup-id "xinput disable 12" 
+#bindsym $mod+plus   exec --no-startup-id "xinput enable 12" 
 #------Disable Touchscreen----#
-bindsym $mod+Shift+minus exec --no-startup-id "xinput disable 9"
-bindsym $mod+Shift+plus  exec --no-startup-id "xinput enable 9"
+#bindsym $mod+Shift+minus exec --no-startup-id "xinput disable 9"
+#bindsym $mod+Shift+plus  exec --no-startup-id "xinput enable 9"
+
 
 # change focus
 bindsym $mod+h focus left
@@ -203,20 +203,19 @@ bindsym $mod+Shift+Right move right
 bindsym $mod+BackSpace split toggle 
 
 # split in vertical orientation
-#bindsym $mod+v split v
+bindsym $mod+v split v
+bindsym $mod+x split h
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+g layout tabbed
-#bindsym $mod+e layout toggle split
 bindsym $mod+t layout toggle 
 
 
 # toggle tiling / floating
 bindsym $mod+Shift+f floating toggle
+bindsym $mod+g focus mode_toggle
 
 
 # Multimedia Keys
@@ -281,7 +280,11 @@ for_window[class=TelegramDesktop] move container to workspace $ws9
 for_window[class=Spotify] move container to workspace $ws10
 for_window[class=(?i)anki] move container to workspace $ws4
 for_window[class=kitty] focus
-for_window[class=emacs] move container to workspace $ws2
+for_window [class=(?i)emacs] floating enable,move center, move to scratchpad
+
+# Scratchpad Config
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
 ##############
 # compositor #
 ##############
@@ -319,14 +322,15 @@ exec --no-startup-id dex --autostart --environment i3
 # uncomment the next line, use arandr to setup displays and save the file as monitor:
 # set wallpaper
 # exec --no-startup-id sleep 2 && nitrogen --restore
-exec_always --no-startup-id sleep 1 && feh --bg-fill $HOME/Pictures/wallpaper/skeleton_Army.png
+exec_always --no-startup-id ~/.scripts/change_wallpaper.sh
+bindsym $mod+z exec --no-startup-id ~/.scripts/change_wallpaper.sh
 
 exec --no-startup-id /usr/bin/dunst
 ##################
 # floating rules #
 ##################
-floating_minimum_size 800 x  600
-#floating_maximum_size 1200 x 1200
+floating_minimum_size 800 x 800
+floating_maximum_size 1000 x 1000
 # set floating (nontiling) for apps needing it
 
 for_window [class="Yad" instance="yad"] floating enable
