@@ -4,13 +4,13 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
-   '("~/org/roam/uni/tim.org" "/home/f/org/roam/uni/etkt.org"
-     "/home/f/org/roam/uni/ubersetzerbau.org" "/home/f/org/roam/uni/bs.org"
-     "/home/f/org/roam/uni/fupro.org" "/home/f/org/roam/uni/mafi2.org"
-     "/home/f/org/roam/uni/ss25.org"))
+   '("~/org/roam/todolist.org" "/home/f/org/roam/uni/tim.org"
+     "/home/f/org/roam/uni/etkt.org" "/home/f/org/roam/uni/ubersetzerbau.org"
+     "/home/f/org/roam/uni/bs.org" "/home/f/org/roam/uni/fupro.org"
+     "/home/f/org/roam/uni/mafi2.org" "/home/f/org/roam/uni/ss25.org"))
  '(package-selected-packages
-   '(org-fragtog pdf-tools org-roam-ui org-modern org-alert olivetti focus
-     all-the-icons)))
+   '(all-the-icons focus olivetti org-alert org-fragtog org-habit-stats org-modern
+     org-roam-ui pdf-tools)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
