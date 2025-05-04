@@ -26,7 +26,7 @@ if [ $pluto -eq "0" ];then
 
 # In secondi
 work_time=2700
-break_time=900
+break_time=450
 
 msg_start=" Pomodoro"
 work_prefix=" "
