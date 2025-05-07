@@ -1,3 +1,38 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-echo "🕒 $(date +"%d-%m-%Y %H:%M")"
+STATE_FILE="/tmp/i3blocks_clock_mode"
+
+case "$BLOCK_BUTTON" in
+    1)  # Left click: toggle between time and date
+        if [[ -f "$STATE_FILE" ]]; then
+            rm "$STATE_FILE"
+        else
+            touch "$STATE_FILE"
+        fi
+        pkill -RTMIN+1 i3blocks
+        exit
+        ;;
+    2)  # Middle click: reset to time
+        rm -f "$STATE_FILE"
+        pkill -RTMIN+1 i3blocks
+        exit
+        ;;
+    3)  # Right click: open calendar
+        if command -v gnome-calendar &> /dev/null; then
+            nohup gnome-calendar >/dev/null 2>&1 &
+        else
+            gnome-terminal -- bash -c "cal; exec bash"
+        fi
+        ;;
+esac
+
+# Show output (only date OR time)
+if [[ -f "$STATE_FILE" ]]; then
+    # No need to refresh every minute — static date
+    echo "📅 $(date +'%d-%m-%Y')"
+    exit 0
+else
+    # Time changes every minute, so update regularly
+    echo "🕒 $(date +'%H:%M')"
+    exit 0
+fi

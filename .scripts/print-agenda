@@ -1,0 +1,31 @@
+#!/usr/bin/env sh
+today=$(date +"%Y-%m-%d")
+if [[ $1 = "--new-instance" ]]
+then
+emacs -batch -l ~/.emacs.d/init.el -eval "(org-batch-store-agenda-views \
+    org-agenda-span (quote day) \
+    org-agenda-start-day \"$today\")" --kill > ~/.agenda
+
+else
+emacsclient -eval "(org-batch-store-agenda-views \
+    org-agenda-span (quote day) \
+    org-agenda-start-day \"$today\")" > ~/agenda
+fi
+
+sed -i  \
+  -e '2s/^/${color #ffff00}/' \
+  -e '2s/$/${color}/'  \
+  -e 's/\(TODO\)/${color #ff0000}\1${color}/g' \
+  -e 's/\(DONE\)/${color #00ff00}\1${color}/g' ~/.agenda
+#cat ~/.agenda
+
+##!/usr/bin/env sh
+
+#emacs --batch -l ~/.config/doom/init.el \
+#  --eval "(require 'org)" \
+#  --eval "(org-batch-store-agenda-views)" > /dev/null
+#
+## color the word TODO red and DONE green
+#cat ~/agenda | \
+#  sed -e 's/\(TODO\)/${color red}\1${color}/g' \
+#      -e 's/\(DONE\)/${color green}\1${color}/g'

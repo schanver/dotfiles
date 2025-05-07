@@ -197,3 +197,17 @@
   (setq org-habit-graph-column 60
   org-habit-preceeing-days 7
   org-habit-following-days 7))
+(setq alert-default-style 'libnotify)
+(setq org-alert-interval 300
+      org-alert-notify-cutoff 10
+      org-alert-notify-after-event-cutoff 10)
+(after! org
+  (setq org-agenda-custom-commands
+        '(("X" agenda ""
+           ((org-agenda-span 'day)
+            (org-agenda-start-day nil)
+            (org-agenda-with-colors nil)
+            (org-agenda-remove-tags t)
+            (ps-number-of-columns 2)
+            (ps-landscape-mode t))
+           ("~/.agenda")))))

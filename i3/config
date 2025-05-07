@@ -9,7 +9,6 @@ set $mod Mod4
 
 exec_always --no-startup-id xrandr --output HDMI-A-0 --mode 2560x1440
 exec_always --no-startup-id xrandr --output eDP-1 --off && xrandr --output HDMI-1 --mode 2560x1440
-
 #####################
 # workspace layout: #
 #####################
@@ -251,7 +250,9 @@ bindsym $mod+w exec --no-startup-id /usr/bin/firefox
 bindsym $mod+n exec --no-startup-id rofi -config ~/.config/rofi/todo.rasi -modi Todo:~/.config/rofi/rofitodo.sh -show Todo
 bindsym $mod+Shift+p exec --no-startup-id ~/.config/i3/scripts/power-profiles
 bindsym Print exec flameshot gui
-
+bindsym $mod+s exec rofi_trans
+bindsym $mod+Ctrl+a exec --no-startup-id ~/dotfiles/.scripts/toggle-conky --raise
+bindsym $mod+Ctrl+q exec --no-startup-id ~/dotfiles/.scripts/toggle-conky 
 ##########################################
 # configuration for workspace behaviour: #
 ##########################################
@@ -319,7 +320,7 @@ exec --no-startup-id dex --autostart --environment i3
 #exec --no-startup-id setxkbmap -layout 'us,sk' -variant altgr-intl,qwerty -option 'grp:alt_caps_toggle'
 
 # start conky:
-#exec_always --no-startup-id conky
+exec_always --no-startup-id conky
 
 # start a script to setup displays
 # uncomment the next line, use arandr to setup displays and save the file as monitor:
@@ -350,6 +351,7 @@ for_window [class="Pamac-manager"] floating enable
 for_window [window_role="About"] floating enable
 for_window [class="(?i)anki"] floating enable, move position center
 for_window [class="(?i)vlc"] floating enable, move position center
+for_window [class="mpv"]  floating enable, move position center
 for_window [class="(?i)blueman-manager"] floating enable, move position center
 
 
@@ -361,14 +363,16 @@ exec_always --no-startup-id blueman-applet
 ######################################
 # color settings for bar and windows #
 ######################################
-# class                 border  bground text    indicator child_border
-client.focused          #C2C2C2 #C2C2C2 #444444 #6272A4   #AAAAFF
-client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
-client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
-client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
-client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
 
-client.background       #F8F8F2
+# class                 border      bground     text        indicator   child_border
+client.focused          #1F1D2E     #A277FF     #F1F1F1     #FFCA85     #A277FF
+client.focused_inactive #2D2A3B     #2D2A3B     #6D6D6D     #2D2A3B     #2D2A3B
+client.unfocused        #1A1826     #1A1826     #4C4C4C     #1A1826     #1A1826
+client.urgent           #3B1F2B     #FF6767     #FFFFFF     #FF3C7E     #FF6767
+client.placeholder      #1A1826     #1A1826     #7F7F7F     #1A1826     #1A1826
+
+client.background       #0F0E17
+
 ############################################
 # bar settings (input comes from i3blocks) #
 ############################################
@@ -376,8 +380,12 @@ client.background       #F8F8F2
   status_command i3blocks -c ~/.config/i3/i3blocks.conf
   position top 
   mode dock
-  #i3bar_command i3bar --transparency
   tray_output primary
+  colors {
+        background #1E1E1E   # Example: Dark background color (change as needed)
+        statusline #FFFFFF    # Example: White text color for the status line
+    }
+  tray_output HDMI-1
 }
 
 bindsym $mod+m bar mode invisible

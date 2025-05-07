@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+
+
+pgrep conky 
+if pgrep conky ; then
+    pkill conky
+else
+    if [[ $* == *--raise* ]] then
+      conky -d
+      xdo raise -N Conky
+    else
+      conky -d --xinerama-head=4
+    fi
+fi
