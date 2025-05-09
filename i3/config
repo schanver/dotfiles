@@ -2,7 +2,7 @@
 # config starts here: #
 #######################
 
-font pango: FiraCode Nerd Font medium 14
+font pango: FiraCode Nerd Font medium 18
 
 # set the mod key to the winkey:
 set $mod Mod4
@@ -297,7 +297,7 @@ exec --no-startup-id picom --config  ~/.config/picom/picom.conf
 #############################################
 
 #start caffeine for disabling screensaver or whatever
-exec_always --no-startup-id caffeine
+exec --no-startup-id caffeine
 
 #get auth work with polkit-gnome
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
@@ -333,8 +333,8 @@ exec --no-startup-id /usr/bin/dunst
 ##################
 # floating rules #
 ##################
-floating_minimum_size 1000 x 1000
-floating_maximum_size 1000 x 1000
+floating_minimum_size 1200 x 1200
+floating_maximum_size 1500 x 1500
 # set floating (nontiling) for apps needing it
 
 for_window [class="Yad" instance="yad"] floating enable
