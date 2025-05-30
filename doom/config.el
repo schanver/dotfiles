@@ -195,15 +195,76 @@
   org-habit-following-days 7))
 (setq alert-default-style 'libnotify)
 (setq org-alert-interval 300
-      org-alert-notify-cutoff 10
-      org-alert-notify-after-event-cutoff 10)
-(after! org
-  (setq org-agenda-custom-commands
-        '(("X" agenda ""
-           ((org-agenda-span 'day)
-            (org-agenda-start-day nil)
-            (org-agenda-with-colors nil)
-            (org-agenda-remove-tags t)
-            (ps-number-of-columns 2)
-            (ps-landscape-mode t))
-           ("~/.agenda")))))
+=======
+      org-alert-notify-after-event-cutoff 10)(after! org
+  ;; Define the countdown function
+(defun my/org-agenda-deadline-countdown ()
+  "Return a string listing upcoming deadlines for klausur/aufgabe tasks in the next 30 days."
+  (let* ((tags '("klausur" "aufgabe"))
+         (today (current-time))
+         (max-days 30)
+         (items '()))
+    (org-map-entries
+     (lambda ()
+       (let ((tags-list (org-get-tags))
+             (deadline (org-entry-get nil "DEADLINE")))
+         (when (and deadline (cl-intersection tags tags-list :test #'string=))
+           (let* ((deadline-time (org-time-string-to-time deadline))
+                  (days-left (floor (/ (float-time (time-subtract deadline-time today)) 86400))))
+             (when (and (>= days-left 0) (<= days-left max-days))
+               (let ((heading (org-get-heading t t t t)))
+                 (push (cons days-left heading) items)))))))
+     nil 'agenda)
+    (if items
+        (concat
+         "⏳ Deadlines (next 30 days):\n"
+         (string-join
+          (mapcar (lambda (entry)
+                    (format "%s in %d day(s)" (cdr entry) (car entry)))
+                  (sort items (lambda (a b) (< (car a) (car b)))))
+          "\n"))
+      "No upcoming deadlines within 30 days for exams or assignments.")))
+
+(setq org-agenda-custom-commands
+      '(("X" "Daily Agenda"
+         agenda ""
+         ((org-agenda-span 'day)
+          (org-agenda-start-day nil)
+          (org-agenda-remove-tags t)
+          (ps-number-of-columns 2)
+          (ps-landscape-mode t))
+         ("~/.agenda"))
+
+        ("e" "Upcoming Exams"
+         ((tags "+klausur"
+                ((org-agenda-overriding-header "📚 Upcoming Exams")
+                 (org-agenda-skip-function
+                  '(org-agenda-skip-entry-if 'notregexp "<[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}[^>]*>"))
+                 (org-agenda-prefix-format
+                  '((tags . "  %t (%(my/org-days-left) days left) [%F]\n")))
+                 (org-agenda-start-day "+0d")
+                 (org-agenda-span 90)
+                 (org-agenda-remove-tags t)))))
+
+        ("w" "Weekly Agenda with Countdown"
+         ((agenda ""
+                  ((org-agenda-span 'week)
+                   (org-agenda-overriding-header
+                    (concat (my/org-agenda-deadline-countdown) "\n\n"))))
+          (alltodo ""))))))
+(defun my/org-days-left ()
+  "Return number of days left until DEADLINE or active timestamp, or empty string."
+  (let* ((timestamp (or (org-entry-get nil "DEADLINE")
+                        (org-entry-get nil "SCHEDULED")
+                        (org-get-scheduled-time (point))
+                        (org-get-deadline-time (point))))
+         (today (current-time)))
+    (if timestamp
+        (let* ((time (if (stringp timestamp)
+                         (org-time-string-to-time timestamp)
+                       timestamp))
+               (days-left (floor (/ (float-time (time-subtract time today)) 86400))))
+          (if (>= days-left 0)
+              (format "%d" days-left)
+            ""))
+      "")))  ;; explicitly return empty string if no timestamp

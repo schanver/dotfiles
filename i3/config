@@ -253,6 +253,7 @@ bindsym Print exec flameshot gui
 bindsym $mod+s exec rofi_trans
 bindsym $mod+Ctrl+a exec --no-startup-id ~/dotfiles/.scripts/toggle-conky --raise
 bindsym $mod+Ctrl+q exec --no-startup-id ~/dotfiles/.scripts/toggle-conky 
+bindsym $mod+y exec --no-startup-id ~/dotfiles/.scripts/fzf-pdf
 ##########################################
 # configuration for workspace behaviour: #
 ##########################################
@@ -281,7 +282,8 @@ for_window[class=TelegramDesktop] move container to workspace $ws9
 for_window[class=Spotify] move container to workspace $ws10
 for_window[class=(?i)anki] move container to workspace $ws4
 for_window[class=kitty] focus
-
+for_window [class=(?i)emacs] floating enable,move center
+for_window [title="^rmpc$"] floating enable, move center
 
 # Scratchpad Config
 bindsym $mod+Shift+minus move scratchpad
@@ -326,8 +328,8 @@ exec_always --no-startup-id conky
 # uncomment the next line, use arandr to setup displays and save the file as monitor:
 # set wallpaper
 # exec --no-startup-id sleep 2 && nitrogen --restore
-exec --no-startup-id ~/.scripts/change_wallpaper.sh
-bindsym $mod+z exec --no-startup-id ~/.scripts/change_wallpaper.sh
+exec --no-startup-id ~/.scripts/change_wallpaper.sh && ~/.scripts/apply_color.sh
+bindsym $mod+z exec --no-startup-id ~/.scripts/change_wallpaper.sh && ~/.scripts/apply_color.sh
 
 exec --no-startup-id /usr/bin/dunst
 ##################

@@ -1,0 +1,36 @@
+#!/bin/bash
+
+SHOWNAME_PATH="$HOME/.cache/i3block-mpd-showname"
+showname=$([ -f "$SHOWNAME_PATH" ] && cat "$SHOWNAME_PATH" || echo 0)
+
+case $BLOCK_BUTTON in
+  1) mpc toggle >/dev/null ;;
+  2) mpc stop >/dev/null ;;
+  3) showname=$((!showname)); echo "$showname" > "$SHOWNAME_PATH" ;;
+  4) mpc prev >/dev/null ;;
+  5) mpc next >/dev/null ;;
+esac
+
+# Icons
+playing_icon="⏸"
+paused_icon="⏵"
+stopped_icon="♪"
+
+# Get player status
+status=$(mpc status | sed -n 's/^\[\([^]]*\)\].*$/\1/p')
+
+# Build output
+output=""
+
+if [ "$showname" = "1" ]; then
+track=$(mpc current | sed 's/.* - //')
+  [ -n "$track" ] && output="【${track:0:45}】"
+fi
+
+case "$status" in
+  playing) output+="$playing_icon" ;;
+  paused)  output+="$paused_icon" ;;
+  *)       output+="$stopped_icon" ;;
+esac
+
+echo "$output"
