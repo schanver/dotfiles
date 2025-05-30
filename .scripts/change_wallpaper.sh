@@ -16,7 +16,5 @@ fi
 
 echo "Selected wallpaper: $random_wallpaper"
 feh --bg-scale $random_wallpaper
-feh --bg-scale $random_wallpaper
-wal -i $random_wallpaper -n
 
 fastfetch

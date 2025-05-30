@@ -172,7 +172,7 @@ bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/scripts/volume_b
 #------Disable Touchscreen----#
 #bindsym $mod+Shift+minus exec --no-startup-id "xinput disable 9"
 #bindsym $mod+Shift+plus  exec --no-startup-id "xinput enable 9"
-
+bindsym $mod+Shift+t exec ~/.scripts/touchscreen_toggle
 
 # change focus
 bindsym $mod+h focus left
@@ -281,7 +281,7 @@ for_window[class=TelegramDesktop] move container to workspace $ws9
 for_window[class=Spotify] move container to workspace $ws10
 for_window[class=(?i)anki] move container to workspace $ws4
 for_window[class=kitty] focus
-for_window [class=(?i)emacs] floating enable,move center, move to scratchpad
+
 
 # Scratchpad Config
 bindsym $mod+Shift+minus move scratchpad
@@ -326,7 +326,7 @@ exec_always --no-startup-id conky
 # uncomment the next line, use arandr to setup displays and save the file as monitor:
 # set wallpaper
 # exec --no-startup-id sleep 2 && nitrogen --restore
-exec_always --no-startup-id ~/.scripts/change_wallpaper.sh
+exec --no-startup-id ~/.scripts/change_wallpaper.sh
 bindsym $mod+z exec --no-startup-id ~/.scripts/change_wallpaper.sh
 
 exec --no-startup-id /usr/bin/dunst
@@ -353,8 +353,8 @@ for_window [class="(?i)anki"] floating enable, move position center
 for_window [class="(?i)vlc"] floating enable, move position center
 for_window [class="mpv"]  floating enable, move position center
 for_window [class="(?i)blueman-manager"] floating enable, move position center
-
-
+for_window [class=(?i)emacs] floating enable,resize set 1500 1500,move position center
+for_window [class="kvantummanager"] floating enable, move position center
 
 exec --no-startup-id "xinput disable 9"
 exec_always --no-startup-id nm-applet --indicator 

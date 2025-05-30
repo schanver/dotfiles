@@ -31,7 +31,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-spacegrey)
+(setq doom-theme 'doom-dracula)
 
 ;;(setq doom-big-font (font-spec :family "Hack" :size 25))
 ;; This determines the style of line numbers in effect. If set to `nil', line
@@ -113,10 +113,6 @@
            :target (file+head "books/${slug}.org"
                               "#+title: ${title}\n#+filetags: books\n\n")
            :unnarrowed t)
-          ("s" "series" plain "%?"
-           :target (file+head "series/${slug}.org"
-                              "#+title: ${title}\n#+filetags: series\n\n")
-           :unarrowed t)
           ("p" "programming" plain "%?"
            :target (file+head "programming/${slug}.org"
                               "#+title: ${title}\n#+filetags: programming\n\n")
