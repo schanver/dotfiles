@@ -21,7 +21,8 @@ workspace_layout default
 ##############################
 
 #border indicator on windows:
-default_border pixel 1
+default_border pixel 10
+default_floating_border pixel 5
 # Set inner/outer gaps
 gaps inner 10 
 gaps outer 0 
@@ -172,7 +173,6 @@ bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/scripts/volume_b
 #------Disable Touchscreen----#
 #bindsym $mod+Shift+minus exec --no-startup-id "xinput disable 9"
 #bindsym $mod+Shift+plus  exec --no-startup-id "xinput enable 9"
-bindsym $mod+Shift+t exec ~/.scripts/touchscreen_toggle
 
 # change focus
 bindsym $mod+h focus left
@@ -282,8 +282,9 @@ for_window[class=TelegramDesktop] move container to workspace $ws9
 for_window[class=Spotify] move container to workspace $ws10
 for_window[class=(?i)anki] move container to workspace $ws4
 for_window[class=kitty] focus
-for_window [class=(?i)emacs] floating enable,move center
-for_window [title="^rmpc$"] floating enable, move center
+for_window [class=(?i)emacs] floating enable,move position center
+for_window [title="^rmpc$"] floating enable, move position center
+for_window [title="^spl$"] floating enable, move position center
 
 # Scratchpad Config
 bindsym $mod+Shift+minus move scratchpad
@@ -366,28 +367,47 @@ exec_always --no-startup-id blueman-applet
 # color settings for bar and windows #
 ######################################
 
-# class                 border      bground     text        indicator   child_border
-client.focused          #1F1D2E     #A277FF     #F1F1F1     #FFCA85     #A277FF
-client.focused_inactive #2D2A3B     #2D2A3B     #6D6D6D     #2D2A3B     #2D2A3B
-client.unfocused        #1A1826     #1A1826     #4C4C4C     #1A1826     #1A1826
-client.urgent           #3B1F2B     #FF6767     #FFFFFF     #FF3C7E     #FF6767
-client.placeholder      #1A1826     #1A1826     #7F7F7F     #1A1826     #1A1826
+set $bg0      #1d2021
+set $bg1      #282828
+set $bg2      #32302f
+set $fg       #ebdbb2
+set $gray     #a89984
+set $red      #cc241d
+set $green    #98971a
+set $yellow   #d79921
+set $blue     #458588
+set $purple   #b16286
+set $darkgreen #3c6e47      
+set $orange   #d65d0e
 
-client.background       #0F0E17
 
+# class                 border|backgr|text|indicator|child_border
+client.focused          $bg0 $blue      $fg $blue      $blue
+client.unfocused        $bg0 $bg2       $gray $bg2     $bg2
+client.focused_inactive $bg0 $bg1       $gray $bg1     $bg1
+client.urgent           $bg0 $red       $fg $red       $red
+
+smart_borders on
 ############################################
 # bar settings (input comes from i3blocks) #
 ############################################
- bar {
-  status_command i3blocks -c ~/.config/i3/i3blocks.conf
-  position top 
-  mode dock
-  tray_output primary
-  colors {
-        background #1E1E1E   # Example: Dark background color (change as needed)
-        statusline #FFFFFF    # Example: White text color for the status line
+bar {
+    status_command i3blocks -c ~/.config/i3/i3blocks.conf
+    tray_output HDMI-1
+    position top
+    mode dock
+
+ colors {
+        background $bg0
+        statusline $fg
+        separator $gray
+
+        focused_workspace   $bg0 $blue   $fg
+        active_workspace    $bg0 $green  $fg
+        inactive_workspace  $bg0 $bg2    $gray
+        urgent_workspace    $bg0 $red    $fg
+        binding_mode        $bg0 $orange $fg
     }
-  tray_output HDMI-1
 }
 
 bindsym $mod+m bar mode invisible

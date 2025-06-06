@@ -3,3 +3,4 @@ set recolor-lightcolor "#1f1f1f"
 set recolor-darkcolor "#dcdccc"
 
 map <C-f> exec "/home/f/.scripts/fzf-pdf"
+set selection-clipboard clipboard
