@@ -195,8 +195,8 @@
   org-habit-following-days 7))
 (setq alert-default-style 'libnotify)
 (setq org-alert-interval 300
-=======
-      org-alert-notify-after-event-cutoff 10)(after! org
+      org-alert-notify-after-event-cutoff 10)
+(after! org
   ;; Define the countdown function
 (defun my/org-agenda-deadline-countdown ()
   "Return a string listing upcoming deadlines for klausur/aufgabe tasks in the next 30 days."
@@ -268,3 +268,6 @@
               (format "%d" days-left)
             ""))
       "")))  ;; explicitly return empty string if no timestamp
+(after! treemacs
+  (map!
+        "M-p" #'treemacs))

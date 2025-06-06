@@ -7,14 +7,17 @@ if [[ ! -d "$WALLPAPER_DIR" ]]; then
   exit 1
 fi
 
-random_wallpaper=$(find -L "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.png" -o -iname "*.jpeg" \) | shuf -n 1)
+# Use relative paths so subfolders are included
+random_wallpaper_rel=$(find -L "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.png" -o -iname "*.jpeg" \) -printf "%P\n" | rofi -dmenu -p "Choose wallpaper" -config ~/dotfiles/rofi/rofidmenu.rasi)
 
-if [[ -z "$random_wallpaper" ]]; then
-  echo "No images found in $WALLPAPER_DIR"
+if [[ -z "$random_wallpaper_rel" ]]; then
+  echo "No image selected."
   exit 1
 fi
 
-echo "Selected wallpaper: $random_wallpaper"
-feh --bg-scale $random_wallpaper
+random_wallpaper="$WALLPAPER_DIR/$random_wallpaper_rel"
 
-fastfetch
+echo "Selected wallpaper: $random_wallpaper"
+
+# Set wallpaper with feh
+feh --bg-scale "$random_wallpaper"

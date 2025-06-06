@@ -4,7 +4,7 @@ allow_remote_control yes
 
 map super+u           set_background_opacity 1
 map super+shift+u     set_background_opacity default
-map super+shift+i     set_background_opacity 0.7
+map super+shift+i     set_background_opacity 0.9
 
 font_family Iosevka Term
 font_family Iosevka Nerd Font Mono
@@ -30,11 +30,11 @@ cursor_blink true
 cursor_shape block        
 cursor_underline_thickness 1.0
 
-background_opacity 0.9
+background_opacity 0.85
 set_background_opacity 1
 
 
 # BEGIN_KITTY_THEME
-# Spacemacs
+# Cyberpunk
 include current-theme.conf
 # END_KITTY_THEME
