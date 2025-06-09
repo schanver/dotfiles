@@ -1,4 +1,4 @@
-include ~/dotfiles/.config/kitty/themes/chalkboard.conf
+#include ~/dotfiles/.config/kitty/themes/black_metal_gorgoroth.conf
 
 allow_remote_control yes
 
@@ -8,7 +8,7 @@ map super+shift+i     set_background_opacity 0.9
 
 font_family Iosevka Term
 font_family Iosevka Nerd Font Mono
-font_size 24
+font_size 26
 text_composition_strategy legacy
 modify_font cell_width 95%
 
@@ -36,5 +36,6 @@ set_background_opacity 1
 
 # BEGIN_KITTY_THEME
 # Cyberpunk
+# 3024 Night
 include current-theme.conf
 # END_KITTY_THEME

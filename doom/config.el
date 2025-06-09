@@ -208,3 +208,7 @@
       "")))
 
 (add-hook 'org-mode-hook 'org-display-inline-images)
+
+(setq org-gcal-client-id "842133277259-41ogj5sdd4ihiklv6mqamltm67i4kpiv.apps.googleusercontent.com"
+      org-gcal-client-secret "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"
+      org-gcal-file-alist '(("phatih.schanver@gmail.com" . "~/org/gcal.org")))

@@ -9,8 +9,8 @@
      "/home/mfs/org/roam/uni/bs.org" "/home/mfs/org/roam/uni/mafi2.org"
      "/home/mfs/org/roam/uni/ss25.org"))
  '(package-selected-packages
-   '(all-the-icons focus olivetti org-alert org-contrib org-fragtog org-habit-stats
-     org-modern org-roam-ui pdf-tools)))
+   '(all-the-icons focus olivetti org-alert org-contrib org-fragtog org-gcal
+                   org-habit-stats org-modern org-roam-ui pdf-tools xah-fly-keys)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

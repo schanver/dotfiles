@@ -7,8 +7,7 @@ font pango: FiraCode Nerd Font medium 18
 # set the mod key to the winkey:
 set $mod Mod4
 
-exec_always --no-startup-id xrandr --output HDMI-A-0 --mode 2560x1440
-exec_always --no-startup-id xrandr --output eDP-1 --off && xrandr --output HDMI-1 --mode 2560x1440
+
 #####################
 # workspace layout: #
 #####################
@@ -21,11 +20,11 @@ workspace_layout default
 ##############################
 
 #border indicator on windows:
-default_border pixel 10
+default_border pixel 5
 default_floating_border pixel 5
 # Set inner/outer gaps
-gaps inner 10 
-gaps outer 0 
+gaps inner 5
+gaps outer 3
 
 #for inserting password
 exec --no-startup-id /usr/lib/polkit-kde-authentication-agent-1
@@ -206,14 +205,14 @@ bindsym $mod+v split v
 bindsym $mod+x split h
 
 # enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
+bindsym $mod+Shift+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+t layout toggle 
 
 
 # toggle tiling / floating
-bindsym $mod+Shift+f floating toggle
+bindsym $mod+f floating toggle
 bindsym $mod+g focus mode_toggle
 
 
@@ -246,9 +245,10 @@ bindsym $mod+p exec --no-startup-id /usr/local/bin/switch-audio-port
 ## App shortcuts
 bindsym $mod+e exec --no-startup-id emacs
 bindsym $mod+o exec --no-startup-id kitty -e zsh -c "cd ~/org/roam/ && exec zsh"
-bindsym $mod+w exec --no-startup-id /usr/bin/firefox
-bindsym $mod+n exec --no-startup-id rofi -config ~/.config/rofi/todo.rasi -modi Todo:~/.config/rofi/rofitodo.sh -show Todo
-bindsym $mod+Shift+p exec --no-startup-id ~/.config/i3/scripts/power-profiles
+bindsym $mod+w exec --no-startup-id zen-browser
+bindsym $mod+n exec --no-startup-id rofi -config ~/.confeg/rofi/todo.rasi -modi Todo:~/.config/rofi/rofitodo.sh -show Todo
+bindsym F9 exec --no-startup-id ~/dotfiles/.scripts/show-keybindings.sh
+bindsym $mod+Shift+p exec flameshot gui
 bindsym Print exec flameshot gui
 bindsym $mod+s exec rofi_trans
 bindsym $mod+Ctrl+a exec --no-startup-id ~/dotfiles/.scripts/toggle-conky --raise
@@ -275,6 +275,7 @@ set $ws10 10
 
 # bind program to workspace and focus to them on startup:
 for_window[class=firefox] move container to workspace $ws3
+for_window[class=zen-browser] move container to workspace $ws3
 for_window[class=obsidian] move container to workspace $ws2
 for_window[class=Com.github.xournalpp.xournalpp] move container to workspace $ws5
 for_window[class=discord] move container to workspace $ws9
@@ -285,6 +286,7 @@ for_window[class=kitty] focus
 for_window [class=(?i)emacs] floating enable,move position center
 for_window [title="^rmpc$"] floating enable, move position center
 for_window [title="^spl$"] floating enable, move position center
+for_window [class=steam] floating enable, move position center
 
 # Scratchpad Config
 bindsym $mod+Shift+minus move scratchpad
@@ -434,6 +436,7 @@ bindsym $mod+a exec --no-startup-id rofi -show window \
 #		-config ~/.config/rofi/rofidmenu.rasi
 
 ## rofi bindings to manage clipboard (install rofi-greenclip from the AUR)
+bindsym F10 exec --no-startup-id rofi -modi emoji -show emoji -config ~/.config/rofi/rofidmenu.rasi
 
 exec --no-startup-id greenclip daemon>/dev/null
 bindsym $mod+c exec --no-startup-id rofi -modi "clipboard:greenclip print" -show clipboard \
