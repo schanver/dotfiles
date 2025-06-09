@@ -1,5 +1,25 @@
 #!/bin/bash
 
+apply_colors() {
+colors_file="$HOME/.cache/wal/colors"
+input_file="$HOME/.cache/wal/templates/template.ron"
+output_file="$HOME/.cache/wal/templates/pywall16.ron"
+
+# Read all 16 lines (assumes color0 to color15 are in order, one per line)
+mapfile -t colors < "$colors_file"
+
+# Copy input to output first
+cp "$input_file" "$output_file"
+
+# Replace {color0} to {color15}
+for i in {0..15}; do
+    hex="${colors[$i]}"
+    sed -i "s/{color$i}/$hex/g" "$output_file"
+done
+
+echo "Applied wal colors to $output_file"
+}
+
 WALLPAPER_DIR="$HOME/Pictures/wallpapers"
 
 if [[ ! -d "$WALLPAPER_DIR" ]]; then
@@ -18,31 +38,6 @@ fi
 # Create an array of filenames for display in rofi
 mapfile -t names < <(printf '%s\n' "${wallpapers[@]##*/}")
 
-# Setup a FIFO for ueberzug to receive commands
-fifo="/tmp/rofi_ueberzug_fifo"
-rm -f "$fifo"
-mkfifo "$fifo"
-
-# Launch ueberzug in background to show preview images
-ueberzug layer --silent < "$fifo" &
-ueberzug_pid=$!
-
-cleanup() {
-  kill "$ueberzug_pid"
-  rm -f "$fifo"
-}
-trap cleanup EXIT
-
-# Function to send preview commands to ueberzug
-preview() {
-  local index=$1
-  local image_path=$2
-
-  # Clear previous images
-  echo "remove preview" > "$fifo"
-  # Add new image (position and size depends on your screen/rofi layout)
-  echo "add preview image -x 500 -y 0 -w 400 -h 300 \"$image_path\"" > "$fifo"
-}
 
 # rofi with preview via ueberzug
 selected=""
@@ -74,8 +69,10 @@ if [[ -n "$selected" ]]; then
   # Find full path of selected wallpaper
   for i in "${!names[@]}"; do
     if [[ "${names[i]}" == "$selected" ]]; then
-      feh --bg-scale "${wallpapers[i]}"
+      wal -e -s -i "${wallpapers[i]}" 
+      #feh --bg-scale "${wallpapers[i]}"
       echo "Selected wallpaper: ${wallpapers[i]}"
+      apply_colors
       exit 0
     fi
   done
