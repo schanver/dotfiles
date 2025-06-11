@@ -1,7 +1,7 @@
 (setq user-full-name "schanver"
       user-mail-address "schanver@proton.me")
 
-(setq doom-theme 'doom-dracula)
+(setq doom-theme 'doom-tokyo-night)
 (setq display-line-numbers-type t)
 (setq doom-font (font-spec :family "IosevkaNFM" :size 24))
 (setq org-hide-emphasis-markers t)
@@ -100,31 +100,6 @@
         ))
 
 (setq org-download-image-dir "~/Pictures/doom/")
-(defun my/org-agenda-deadline-countdown ()
-  (let* ((tags '("klausur" "aufgabe"))
-         (today (current-time))
-         (max-days 30)
-         (items '()))
-(org-map-entries
-     (lambda ()
-       (let ((tags-list (org-get-tags))
-             (deadline (org-entry-get nil "DEADLINE")))
-         (when (and deadline (cl-intersection tags tags-list :test #'string=))
-           (let* ((deadline-time (org-time-string-to-time deadline))
-                  (days-left (floor (/ (float-time (time-subtract deadline-time today)) 86400))))
-             (when (and (>= days-left 0) (<= days-left max-days))
-               (let ((heading (org-get-heading t t t t)))
-                 (push (format "%s in %d day(s)" heading days-left) items)))))))
-     nil 'agenda)
-    (if items
-        (concat "⏳ Deadlines (next 30 days):\n" (string-join (sort items #'string<) "\n"))
-      "No upcoming deadlines within 30 days for exams or assignments.")))
-(setq org-agenda-custom-commands
-      '(("w" "Weekly Agenda with Countdown"
-         ((agenda "" ((org-agenda-span 'week)
-                      (org-agenda-overriding-header
-                       (concat (my/org-agenda-deadline-countdown) "\n\n"))))
-          (alltodo "")))))
 (after! org
   (setq org-habit-graph-column 60
   org-habit-preceeing-days 7
@@ -201,10 +176,6 @@
           (if (>= days-left 0)
               (format "%d" days-left)
             ""))
-      "")))  ;; explicitly return empty string if no timestamp
-(after! treemacs
-  (map!
-        "M-p" #'treemacs))
       "")))
 
 (add-hook 'org-mode-hook 'org-display-inline-images)

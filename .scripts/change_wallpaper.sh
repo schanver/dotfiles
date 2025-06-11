@@ -42,7 +42,7 @@ mapfile -t names < <(printf '%s\n' "${wallpapers[@]##*/}")
 # rofi with preview via ueberzug
 selected=""
 while true; do
-  selected=$(printf '%s\n' "${names[@]}" | rofi -dmenu -i -p "Select wallpaper:" -no-custom -kb-custom-1 "")
+  selected=$(printf '%s\n' "${names[@]}" | rofi -dmenu -i -p "Select wallpaper:" -config ~/dotfiles/rofi/rofidmenu.rasi)
 
   if [[ -z "$selected" ]]; then
     # no selection or ESC pressed, exit loop
