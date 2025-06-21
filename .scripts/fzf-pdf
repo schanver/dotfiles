@@ -1,7 +1,10 @@
 #!/usr/bin/env bash 
 
 FILE=$(find ~/org/ss25 -type f -name "*.pdf" 2>/dev/null| rofi -dmenu -i -p "Open PDF:" -config ~/dotfiles/rofi/rofidmenu.rasi)
-[ -n "$FILE" ] && zathura "$FILE" 2>/dev/null
-
+if [[ $1 == "--xopp" ]]; then
+  [ -n "$FILE" ] && xournalpp "$FILE" 2>/dev/null
+else 
+  [ -n "$FILE" ] && zathura "$FILE" 2>/dev/null
+fi
 
 

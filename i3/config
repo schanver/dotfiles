@@ -251,6 +251,7 @@ bindsym $mod+s exec rofi_trans
 bindsym $mod+Ctrl+a exec --no-startup-id ~/dotfiles/.scripts/toggle-conky --raise
 bindsym $mod+Ctrl+q exec --no-startup-id ~/dotfiles/.scripts/toggle-conky 
 bindsym $mod+y exec --no-startup-id ~/dotfiles/.scripts/fzf-pdf
+bindsym $mod+Shift+y exec --no-startup-id ~/dotfiles/.scripts/fzf-pdf --xopp
 bindsym $mod+odiaeresis exec --no-startup-id discord
 ##########################################
 # configuration for workspace behaviour: #

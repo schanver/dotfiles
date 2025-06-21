@@ -1,7 +1,7 @@
 (setq user-full-name "schanver"
       user-mail-address "schanver@proton.me")
 
-(setq doom-theme 'doom-tokyo-night)
+(setq doom-theme 'doom-dracula)
 (setq display-line-numbers-type t)
 (setq doom-font (font-spec :family "IosevkaNFM" :size 24))
 (setq org-hide-emphasis-markers t)
