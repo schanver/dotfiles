@@ -22,6 +22,7 @@
 * Font and Theme
 #+begin_src emacs-lisp
 (setq doom-theme 'doom-dracula)
+(add-hook! 'doom-init-ui-hook #'doom-big-font-mode)
 (setq display-line-numbers-type t)
 (setq doom-font (font-spec :family "IosevkaNFM" :size 24))
 (setq org-hide-emphasis-markers t)
@@ -232,4 +233,12 @@ Keybindings:
 (setq org-gcal-client-id "842133277259-41ogj5sdd4ihiklv6mqamltm67i4kpiv.apps.googleusercontent.com"
       org-gcal-client-secret "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"
       org-gcal-file-alist '(("phatih.schanver@gmail.com" . "~/org/gcal.org")))
+#+end_src
+* Snippets
+#+begin_src emacs-lisp
+(yas-global-mode 1)
+#+end_src
+* Zen Mode
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-c z") #'zen-mode)
 #+end_src

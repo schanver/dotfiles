@@ -2,6 +2,7 @@
       user-mail-address "schanver@proton.me")
 
 (setq doom-theme 'doom-dracula)
+(add-hook! 'doom-init-ui-hook #'doom-big-font-mode)
 (setq display-line-numbers-type t)
 (setq doom-font (font-spec :family "IosevkaNFM" :size 24))
 (setq org-hide-emphasis-markers t)
@@ -183,3 +184,7 @@
 (setq org-gcal-client-id "842133277259-41ogj5sdd4ihiklv6mqamltm67i4kpiv.apps.googleusercontent.com"
       org-gcal-client-secret "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"
       org-gcal-file-alist '(("phatih.schanver@gmail.com" . "~/org/gcal.org")))
+
+(yas-global-mode 1)
+
+(global-set-key (kbd "C-c z") #'zen-mode)

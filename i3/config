@@ -316,6 +316,8 @@ exec --no-startup-id ~/.scripts/change_wallpaper.sh
 bindsym $mod+z exec --no-startup-id ~/.scripts/change_wallpaper.sh 
 
 exec --no-startup-id /usr/bin/dunst
+exec --no-startup-id emacs --daemon
+exec --no-startup-id mpd-mpris
 ##################
 # floating rules #
 ##################
