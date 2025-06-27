@@ -37,6 +37,7 @@
 (use-package! org-roam
   :after org
   :config
+ (require 'org-roam-dailies)
  (setq org-roam-graph-viewer "firefox"
        org-roam-graph-executable "dot")
   ;; Org-roam directories and database settings
@@ -73,7 +74,7 @@
     :after org-roam)
 (use-package! org-roam-ui
   :after org-roam
-  :hook (org-roam-mode . org-roam-ui-mode)
+  :commands (org-roam-ui-mode org-roam-ui-open)
   :config
   (setq org-roam-ui-sync-theme t
         org-roam-ui-follow t
@@ -87,7 +88,7 @@
         :desc "Insert node"      "i" #'org-roam-node-insert
         :desc "Add tag"          "t" #'org-roam-tag-add
         :desc "Remove tag"       "T" #'org-roam-tag-remove
-        :desc "Show graph"       "g" #'org-roam-ui-mode
+        :desc "Show graph"       "g" #'org-roam-ui-open
         :desc "Toggle buffer"    "l" #'org-roam-buffer-toggle
         :desc "Capture template" "c" #'org-roam-capture
         ;; Updated dailies commands
