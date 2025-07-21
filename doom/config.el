@@ -30,16 +30,16 @@
 (setq org-download-image-dir "~/org/roam/attachments/")
 
 (setq org-roam-node-display-template
-      (concat "${title:*} "
-              (propertize "${tags:*}" 'face '(:foreground "yellow" :weight bold))))
+      (concat (propertize "${tags:30} " 'face '(:foreground "green" :weight bold))
+              "${title:*}"))
 
 ;; Org-roam configuration
 (use-package! org-roam
   :after org
   :config
- (require 'org-roam-dailies)
- (setq org-roam-graph-viewer "firefox"
-       org-roam-graph-executable "dot")
+  (require 'org-roam-dailies)
+  (setq org-roam-graph-viewer "firefox"
+        org-roam-graph-executable "dot")
   ;; Org-roam directories and database settings
   (setq org-roam-directory "~/org/roam"
         org-roam-dailies-directory "daily/"
@@ -51,20 +51,30 @@
            :target (file+head "${slug}.org"
                               "#+title: ${title}\n#+date: %U\n\n")
            :unnarrowed t)
+
           ("b" "books" plain "%?"
            :target (file+head "books/${slug}.org"
                               "#+title: ${title}\n#+filetags: books\n\n")
            :unnarrowed t)
+
           ("p" "programming" plain "%?"
            :target (file+head "programming/${slug}.org"
                               "#+title: ${title}\n#+filetags: programming\n\n")
            :unnarrowed t)
+
           ("w" "writings" plain "%?"
            :target (file+head "writings/${slug}.org"
                               "#+title: ${title}\n#+filetags: writings\n\n")
            :unnarrowed t)
-          ("u" "uni" plain "%?"
-           :target (file+head "uni/${slug}.org" "#+title: ${title}\n#+filetags: uni\n")
+
+          ("u" "university notes" plain "%?"
+           :target (file+head "uni/${slug}.org"
+                              "#+title: ${title}\n#+filetags: uni\n")
+           :unnarrowed t)
+
+          ("m" "modules" plain "%?"
+           :target (file+head "uni/${slug}.org"
+                              "#+title: ${title}\n#+filetags: uni \n\n* Modulinformation\n** Lehrer:\n** Email:\n** Moodle:\n\n* Termine und Aufgaben\n** Notizen\n")
            :unnarrowed t)))
 
   ;; Enable Org-roam database autosync
