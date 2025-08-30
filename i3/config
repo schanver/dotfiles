@@ -36,7 +36,7 @@ exec_always --no-startup-id xidlehook \
   --timer 1200 '~/.config/i3/lock.sh' 
 
 # show window title bars (not officially supported with i3gaps)
-#default_border normal
+default_border normal
 default_border pixel 2
 # window title alignment
 #title_align center
@@ -305,6 +305,9 @@ exec --no-startup-id picom --config  ~/.config/picom/picom.conf
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id dex --autostart --environment i3 
 
+exec --no-startup-id "xinput disable 9"
+exec_always --no-startup-id nm-applet --indicator 
+exec_always --no-startup-id blueman-applet 
 # start conky:
 exec_always --no-startup-id conky
 
@@ -315,7 +318,7 @@ exec_always --no-startup-id conky
 exec --no-startup-id ~/.scripts/change_wallpaper.sh
 bindsym $mod+z exec --no-startup-id ~/.scripts/change_wallpaper.sh 
 
-exec --no-startup-id /usr/bin/dunst
+exec_always --no-startup-id /usr/bin/dunst
 exec --no-startup-id emacs --daemon
 exec --no-startup-id mpd-mpris
 ##################
@@ -344,9 +347,6 @@ for_window [class="(?i)blueman-manager"] floating enable, move position center
 for_window [class=(?i)emacs] floating enable,resize set 1500 1500,move position center
 for_window [class="kvantummanager"] floating enable, move position center
 
-exec --no-startup-id "xinput disable 9"
-exec_always --no-startup-id nm-applet --indicator 
-exec_always --no-startup-id blueman-applet 
 
 ######################################
 # color settings for bar and windows #
@@ -378,7 +378,7 @@ smart_borders on
 ############################################
 bar {
     status_command i3blocks -c ~/.config/i3/i3blocks.conf
-    tray_output eDP
+    tray_output HDMI-A-0
     position top
     mode dock
 

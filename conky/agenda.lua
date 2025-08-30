@@ -3,5 +3,5 @@ function conky_parse_agenda()
   if not f then return "" end
   local content = f:read("*all")
   f:close()
-  return conky_parse(content)
+  return content
 end

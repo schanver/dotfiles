@@ -28,6 +28,7 @@ return {
       lspconfig.jedi_language_server.setup({ capabilities = capabilities })
       lspconfig.clangd.setup({ capabilities = capabilities })
       lspconfig.jdtls.setup({ capabilities = capabilities })
+      lspconfig.kotlin_language_server.setup({ capabilities = capabilities })
 
       -- Diagnostic signs
       local signs = {

@@ -3,19 +3,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-agenda-files
-   '("/home/mfs/org/roam/uni/ss25.org" "/home/mfs/org/roam/media_tracker.org"
-     "/home/mfs/org/roam/weekly_reset.org" "/home/mfs/org/gcal.org"
-     "/home/mfs/org/roam/uni/ubersetzerbau.org"
-     "/home/mfs/org/roam/uni/fupro.org" "/home/mfs/org/roam/uni/tim.org"
-     "/home/mfs/org/roam/todolist.org" "/home/mfs/org/roam/uni/bs.org"
-     "/home/mfs/org/roam/uni/mafi2.org"))
- '(package-selected-packages
-   '(all-the-icons focus olivetti org-alert org-contrib org-fragtog org-gcal
-     org-habit-stats org-modern org-roam-ui pdf-tools xah-fly-keys)))
+ '(org-agenda-files '("/home/mfs/org/gcal.org")))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :extend nil :stipple nil :background "#282828" :foreground "#ebdbb2" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight regular :height 180 :width normal :foundry "ADBO" :family "Source Code Pro")))))
+ )
