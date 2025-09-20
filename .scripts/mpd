@@ -3,28 +3,53 @@
 SHOWNAME_PATH="$HOME/.cache/i3block-mpd-showname"
 showname=$([ -f "$SHOWNAME_PATH" ] && cat "$SHOWNAME_PATH" || echo 0)
 
-case $BLOCK_BUTTON in
-  1) mpc toggle >/dev/null ;;
-  2) mpc stop >/dev/null ;;
-  3) showname=$((!showname)); echo "$showname" > "$SHOWNAME_PATH" ;;
-  4) mpc prev >/dev/null ;;
-  5) mpc next >/dev/null ;;
-esac
-
 # Icons
 playing_icon="⏸"
 paused_icon="⏵"
 stopped_icon="♪"
 
-# Get player status
-status=$(mpc status | sed -n 's/^\[\([^]]*\)\].*$/\1/p')
+# Determine active player
+players=($(playerctl -l 2>/dev/null))
+active_player=""
+status=""
+
+for p in "${players[@]}"; do
+    state=$(playerctl -p "$p" status 2>/dev/null)
+    if [ "$state" = "Playing" ]; then
+        active_player="$p"
+        status="playing"
+        break
+    fi
+done
+
+# If no player is actively playing, fall back to mpd
+if [ -z "$active_player" ]; then
+    if [[ " ${players[*]} " =~ " mpd " ]]; then
+        active_player="mpd"
+        status=$(playerctl -p mpd status 2>/dev/null | tr '[:upper:]' '[:lower:]')
+    else
+        # fallback if even mpd isn't on dbus (use mpc)
+        active_player="mpc"
+        status=$(mpc status | sed -n 's/^\[\([^]]*\)\].*$/\1/p')
+    fi
+fi
+
+# Handle button presses
+case $BLOCK_BUTTON in
+  1) playerctl -p "$active_player" play-pause 2>/dev/null || mpc toggle >/dev/null ;;
+  2) playerctl -p "$active_player" stop 2>/dev/null || mpc stop >/dev/null ;;
+  3) showname=$((!showname)); echo "$showname" > "$SHOWNAME_PATH" ;;
+  4) playerctl -p "$active_player" previous 2>/dev/null || mpc prev >/dev/null ;;
+  5) playerctl -p "$active_player" next 2>/dev/null || mpc next >/dev/null ;;
+esac
 
 # Build output
 output=""
 
 if [ "$showname" = "1" ]; then
-track=$(mpc current | sed 's/.* - //')
-  [ -n "$track" ] && output="【${track:0:45}】"
+    track=$(playerctl -p "$active_player" metadata xesam:title 2>/dev/null \
+        || mpc current | sed 's/.* - //')
+    [ -n "$track" ] && output="【${track:0:45}】"
 fi
 
 case "$status" in

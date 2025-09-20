@@ -2,11 +2,11 @@
       user-mail-address "schanver@proton.me")
 
 (setq doom-theme 'doom-dracula)
-(add-hook! 'doom-init-ui-hook #'doom-big-font-mode)
 (setq display-line-numbers-type t)
-(setq doom-font (font-spec :family "IosevkaNFM" :size 24))
+(setq doom-font (font-spec :family "IosevkaTerm Nerd Font Mono" :size 32))
+;(add-hook! 'doom-init-ui-hook #'doom-big-font-mode)
 (setq org-hide-emphasis-markers t)
-(setq-default evil-conceal-level 3)
+(setq-default evil-conceal-level 2)
 
 (use-package! org-modern
   :hook (org-mode . org-modern-mode)

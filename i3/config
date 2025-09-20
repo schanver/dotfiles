@@ -248,6 +248,7 @@ bindsym $mod+n exec --no-startup-id rofi -config ~/.config/rofi/todo.rasi -modi 
 bindsym $mod+Shift+p exec flameshot gui
 bindsym Print exec flameshot gui
 bindsym $mod+s exec rofi_trans
+bindsym $mod+F10 exec --no-startup-id kitty -e rmpc
 bindsym $mod+Ctrl+a exec --no-startup-id ~/dotfiles/.scripts/toggle-conky --raise
 bindsym $mod+Ctrl+q exec --no-startup-id ~/dotfiles/.scripts/toggle-conky 
 bindsym $mod+y exec --no-startup-id ~/dotfiles/.scripts/fzf-pdf
@@ -317,15 +318,18 @@ exec_always --no-startup-id conky
 # exec --no-startup-id sleep 2 && nitrogen --restore
 exec --no-startup-id ~/.scripts/change_wallpaper.sh
 bindsym $mod+z exec --no-startup-id ~/.scripts/change_wallpaper.sh 
+bindsym $mod+p exec --no-startup-id kitty -e ~/.scripts/timechart.sh
 
 exec_always --no-startup-id /usr/bin/dunst
 exec --no-startup-id emacs --daemon
 exec --no-startup-id mpd-mpris
+exec_always syncthing &
+exec mpd-mpris &
 ##################
 # floating rules #
 ##################
 floating_minimum_size 1200 x 1200
-floating_maximum_size 1500 x 1500
+floating_maximum_size 1900 x 1900
 # set floating (nontiling) for apps needing it
 
 for_window [class="Yad" instance="yad"] floating enable
@@ -379,6 +383,7 @@ smart_borders on
 bar {
     status_command i3blocks -c ~/.config/i3/i3blocks.conf
     tray_output HDMI-A-0
+    tray_output eDP
     position top
     mode dock
 

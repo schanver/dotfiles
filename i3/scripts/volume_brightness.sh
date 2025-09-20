@@ -21,8 +21,7 @@ function get_mute {
 
 # Uses regex to get brightness from xbacklight
 function get_brightness {
-    brightnessctl g | grep -Po '[0-9]{1,3}' | head -n 1
-
+    brightnessctl g
 }
 
 # Returns a mute icon, a volume-low icon, or a volume-high icon, depending on the volume
@@ -53,7 +52,7 @@ function show_volume_notif {
 # Displays a brightness notification using dunstify
 function show_brightness_notif {
 	massima=$(brightnessctl m)
-	brightness=$(($(get_brightness)*100/$massima))
+brightness=$(printf "%.0f" "$(echo "$(get_brightness) * 100 / $massima" | bc -l)")
     get_brightness_icon
     dunstify -t 1000 -r 2593 -u normal "$brightness_icon $brightness%" -h int:value:$brightness -h string:hlcolor:$bar_color
 }

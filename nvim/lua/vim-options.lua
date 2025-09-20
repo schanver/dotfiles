@@ -84,3 +84,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank()
   end,
 })
+
+vim.keymap.set('n','<leader>lt', function ()
+  vim.cmd(":0r ~/Templates/latex_template.tex")
+end, { desc = "Insert LaTeX template to the buffer" })
