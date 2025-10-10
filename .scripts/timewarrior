@@ -1,0 +1,22 @@
+#!/bin/bash 
+
+CATEGORIES=(
+  "PROGRAMMING"
+  "GAMING"
+  "STUDYING"
+  "STOP"
+  "YOUTUBE"
+  "LECTURES"
+)
+
+selected=$(printf "%s\n" "${CATEGORIES[@]}" | rofi -dmenu -i -p "Select" \
+  -theme ~/.config/rofi/timew.rasi)
+[[ -z "$selected" ]] && exit 0
+
+if [[ "$selected" == "STOP" ]]; then
+  timew stop
+  tmux set -g status-right ""
+else 
+  timew start "$selected"
+  tmux set -g status-right "$selected | %H:%M "
+fi

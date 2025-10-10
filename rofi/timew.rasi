@@ -1,0 +1,28 @@
+@import "~/.cache/wal/colors-rofi-dark.rasi"
+window {
+  location: center;
+  width: 20%;
+  background-color: @background;
+}
+listview {
+  spacing: 5px;
+  lines: 6;
+}
+prompt {
+  font: "JetBrainsMono Nerd Font Bold 14";
+  text-color: @foreground;
+}
+entry {
+  text-color: @foreground;
+  font: "JetBrainsMono Nerd Font 14";
+}
+element-text {
+  font: "JetBrainsMono Nerd Font Bold 14";
+  text-color: @foreground;
+  horizontal-align: 0.5;
+}
+
+element-text selected {
+  background-color: @active-background;
+  text-color: @active-foreground;
+}
