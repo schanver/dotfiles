@@ -247,7 +247,8 @@ bindsym $mod+w exec --no-startup-id zen-browser
 bindsym $mod+n exec --no-startup-id rofi -config ~/.config/rofi/todo.rasi -modi Todo:~/.config/rofi/rofitodo.sh -show Todo
 bindsym $mod+Shift+p exec flameshot gui
 bindsym Print exec flameshot gui
-bindsym $mod+s exec rofi_trans
+bindsym $mod+s exec --no-startup-id ~/dotfiles/.scripts/timewarrior 
+bindsym $mod+p exec --no-startuo-id astah-pro
 bindsym $mod+F10 exec --no-startup-id kitty -e rmpc
 bindsym $mod+Ctrl+a exec --no-startup-id ~/dotfiles/.scripts/toggle-conky --raise
 bindsym $mod+Ctrl+q exec --no-startup-id ~/dotfiles/.scripts/toggle-conky 
@@ -306,7 +307,6 @@ exec --no-startup-id picom --config  ~/.config/picom/picom.conf
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id dex --autostart --environment i3 
 
-exec --no-startup-id "xinput disable 9"
 exec_always --no-startup-id nm-applet --indicator 
 exec_always --no-startup-id blueman-applet 
 # start conky:
@@ -318,7 +318,6 @@ exec_always --no-startup-id conky
 # exec --no-startup-id sleep 2 && nitrogen --restore
 exec --no-startup-id ~/.scripts/change_wallpaper.sh
 bindsym $mod+z exec --no-startup-id ~/.scripts/change_wallpaper.sh 
-bindsym $mod+p exec --no-startup-id kitty -e ~/.scripts/timechart.sh
 
 exec_always --no-startup-id /usr/bin/dunst
 exec --no-startup-id emacs --daemon

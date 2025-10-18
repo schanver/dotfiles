@@ -9,15 +9,15 @@ listview {
   lines: 6;
 }
 prompt {
-  font: "JetBrainsMono Nerd Font Bold 14";
+  font: "JetBrainsMono Nerd Font Bold 22";
   text-color: @foreground;
 }
 entry {
   text-color: @foreground;
-  font: "JetBrainsMono Nerd Font 14";
+  font: "JetBrainsMono Nerd Font 22";
 }
 element-text {
-  font: "JetBrainsMono Nerd Font Bold 14";
+  font: "JetBrainsMono Nerd Font Bold 22";
   text-color: @foreground;
   horizontal-align: 0.5;
 }

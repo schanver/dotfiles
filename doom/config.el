@@ -3,17 +3,17 @@
 
 (setq doom-theme 'doom-dracula)
 (setq display-line-numbers-type t)
-(setq doom-font (font-spec :family "IosevkaTerm Nerd Font Mono" :size 32))
+(setq doom-font (font-spec :family "IosevkaTerm Nerd Font Mono" :size 28))
 ;(add-hook! 'doom-init-ui-hook #'doom-big-font-mode)
 (setq org-hide-emphasis-markers t)
-(setq-default evil-conceal-level 2)
+(setq-default evil-conceal-level 3)
 
 (use-package! org-modern
   :hook (org-mode . org-modern-mode)
   :config
   (setq org-modern-block-fringe nil
         org-modern-block-name '("⎡" . "⎦") ;; visual replacement for #+begin_ and #+end_
-        org-modern-hide-stars t
+        org-modern-hide-stars nil
         org-modern-star '("★" "•" "◦" "‣")))
 
 (use-package! treemacs-projectile
@@ -199,3 +199,8 @@
 (yas-global-mode 1)
 
 (global-set-key (kbd "C-c z") #'zen-mode)
+
+(require 'org-habit)
+(add-to-list 'org-modules 'org-habit)
+
+(setq org-log-into-drawer t)

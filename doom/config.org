@@ -23,10 +23,10 @@
 #+begin_src emacs-lisp
 (setq doom-theme 'doom-dracula)
 (setq display-line-numbers-type t)
-(setq doom-font (font-spec :family "IosevkaTerm Nerd Font Mono" :size 32))
+(setq doom-font (font-spec :family "IosevkaTerm Nerd Font Mono" :size 28))
 ;(add-hook! 'doom-init-ui-hook #'doom-big-font-mode)
 (setq org-hide-emphasis-markers t)
-(setq-default evil-conceal-level 2)
+(setq-default evil-conceal-level 3)
 #+end_src
 * Org-Modern
 #+begin_src emacs-lisp
@@ -35,7 +35,7 @@
   :config
   (setq org-modern-block-fringe nil
         org-modern-block-name '("⎡" . "⎦") ;; visual replacement for #+begin_ and #+end_
-        org-modern-hide-stars t
+        org-modern-hide-stars nil
         org-modern-star '("★" "•" "◦" "‣")))
 
 #+end_src
@@ -252,4 +252,13 @@ Keybindings:
 * Zen Mode
 #+begin_src emacs-lisp
 (global-set-key (kbd "C-c z") #'zen-mode)
+#+end_src
+* Org Habits
+#+begin_src emacs-lisp
+(require 'org-habit)
+(add-to-list 'org-modules 'org-habit)
+#+end_src
+* Org Logbook
+#+begin_src emacs-lisp
+(setq org-log-into-drawer t)
 #+end_src
