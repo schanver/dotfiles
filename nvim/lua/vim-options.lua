@@ -8,8 +8,6 @@ vim.opt.softtabstop = 2
 vim.opt.conceallevel = 2
 vim.opt.concealcursor = 'nc'
 
--- Set the colorscheme to retrobox
-vim.cmd.colorscheme "retrobox"
 
 -- Disable swap files
 vim.opt.swapfile = false
