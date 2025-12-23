@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# Check if Caps Lock is on using xset
+if xset q | grep -q "Caps Lock:   on"; then
+    echo "CAPS"
+else
+    echo ""
+fi
