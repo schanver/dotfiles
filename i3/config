@@ -28,18 +28,18 @@ gaps outer 3
 
 #for inserting password
 exec --no-startup-id /usr/lib/polkit-kde-authentication-agent-1
-exec --no-startup-id xss-lock -- ~/.config/i3/lock.sh
+exec --no-startup-id xss-lock -- ~/.config/i3/scripts/blur-lock
 exec_always --no-startup-id xidlehook \
   --not-when-fullscreen \
   --not-when-audio \
   --timer 600 'xset dpms force off' '' \
-  --timer 1200 '~/.config/i3/lock.sh' 
+  --timer 1200 '~/.config/i3/scripts/blur-lock' 
 
 # show window title bars (not officially supported with i3gaps)
 default_border normal
 default_border pixel 2
-# window title alignment
-#title_align center
+#window title alignment
+title_align center
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -152,9 +152,9 @@ bindsym $mod+Return exec --no-startup-id kitty
 # kill focused window
 bindsym $mod+q kill
 
-# exit-menu
+# power menu
 bindsym $mod+Shift+e exec --no-startup-id ~/.config/i3/scripts/powermenu
-# Lock the system
+
 # reload the configuration file
 bindsym $mod+Shift+c reload
 
@@ -238,7 +238,6 @@ bindsym XF86AudioPause exec --no-startup-id playerctl pause
 bindsym XF86AudioNext exec --no-startup-id playerctl next
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
-# Redirect sound to headphones
 
 ## App shortcuts
 bindsym $mod+e exec --no-startup-id emacs
@@ -248,7 +247,7 @@ bindsym $mod+n exec --no-startup-id rofi -config ~/.config/rofi/todo.rasi -modi 
 bindsym $mod+Shift+p exec flameshot gui
 bindsym Print exec flameshot gui
 bindsym $mod+s exec --no-startup-id ~/dotfiles/.scripts/timewarrior 
-bindsym $mod+p exec --no-startuo-id astah-pro
+bindsym $mod+p exec --no-startup-id astah-pro
 bindsym $mod+F10 exec --no-startup-id kitty -e rmpc
 bindsym $mod+Ctrl+a exec --no-startup-id ~/dotfiles/.scripts/toggle-conky --raise
 bindsym $mod+Ctrl+q exec --no-startup-id ~/dotfiles/.scripts/toggle-conky 
@@ -318,12 +317,13 @@ exec_always --no-startup-id conky
 # exec --no-startup-id sleep 2 && nitrogen --restore
 exec --no-startup-id feh --bg-fill ~/dotfiles/wallpapers/galaxy.jpg
 bindsym $mod+z exec --no-startup-id ~/.scripts/change_wallpaper.sh 
+bindsym $mod+Shift+plus exec --no-startup-id pkill pulseUI
 
 exec_always --no-startup-id /usr/bin/dunst
 exec --no-startup-id emacs --daemon
 exec --no-startup-id systemctl --user start mpd
 exec --no-startup-id mpd-mpris
-exec_always syncthing &
+exec_always syncthing-gtk
 ##################
 # floating rules #
 ##################
@@ -347,7 +347,7 @@ for_window [class="(?i)anki"] floating enable, move position center
 for_window [class="(?i)vlc"] floating enable, move position center
 for_window [class="mpv"]  floating enable, move position center
 for_window [class="(?i)blueman-manager"] floating enable, move position center
-for_window [class=(?i)emacs] floating enable,resize set 1500 1500,move position center
+for_window [class=(?i)emacs] floating enable,move position center
 for_window [class="kvantummanager"] floating enable, move position center
 
 
