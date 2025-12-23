@@ -16,9 +16,10 @@
         org-modern-hide-stars nil
         org-modern-star '("★" "•" "◦" "‣")))
 
-(use-package! treemacs-projectile
-  :after (treemacs projectile))
-(map! "C-t" #'treemacs)
+(after! treemacs
+  (treemacs-project-follow-mode 1)
+  (treemacs-follow-mode 1)
+  (treemacs-filewatch-mode 1))
 
 (use-package! org-fragtog
   :ensure t)
@@ -53,27 +54,27 @@
            :unnarrowed t)
 
           ("b" "books" plain "%?"
-           :target (file+head "books/${slug}.org"
+           :target (file+head "${slug}.org"
                               "#+title: ${title}\n#+filetags: books\n\n")
            :unnarrowed t)
 
           ("p" "programming" plain "%?"
-           :target (file+head "programming/${slug}.org"
+           :target (file+head "${slug}.org"
                               "#+title: ${title}\n#+filetags: programming\n\n")
            :unnarrowed t)
 
           ("w" "writings" plain "%?"
-           :target (file+head "writings/${slug}.org"
+           :target (file+head "${slug}.org"
                               "#+title: ${title}\n#+filetags: writings\n\n")
            :unnarrowed t)
 
           ("u" "university notes" plain "%?"
-           :target (file+head "uni/${slug}.org"
+           :target (file+head "${slug}.org"
                               "#+title: ${title}\n#+filetags: uni\n")
            :unnarrowed t)
 
           ("m" "modules" plain "%?"
-           :target (file+head "uni/${slug}.org"
+           :target (file+head "${slug}.org"
                               "#+title: ${title}\n#+filetags: uni \n\n* Modulinformation\n** Lehrer:\n** Email:\n** Moodle:\n\n* Termine und Aufgaben\n** Notizen\n")
            :unnarrowed t)))
 
