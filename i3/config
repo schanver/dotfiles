@@ -19,7 +19,7 @@ workspace_layout default
 # extra options for windows: #
 ##############################
 
-#border indicator on windows:
+#border indicator on windows
 default_border pixel 5
 default_floating_border pixel 5
 # Set inner/outer gaps
@@ -411,8 +411,12 @@ bindsym $mod+period bar mode dock
 bindsym $mod+d exec --no-startup-id rofi -modi drun -show drun \
 		-config ~/.config/rofi/rofidmenu.rasi 
 
-bindsym $mod+a exec --no-startup-id rofi -show window \
-		-config ~/.config/rofi/rofidmenu.rasi
+#bindsym F9 exec --no-startup-id rofi -modi drun -show drun \
+#		-config ~/.config/rofi/rofidmenu.rasi
+
+## rofi bindings for window menu ($mod+t /F10 optional disabled)
+
+bindsym $mod+a exec --no-startup-id rofi -show filebrowser -config ~/.config/rofi/rofidmenu.rasi
 
 bindsym F10 exec --no-startup-id rofi -modi emoji -show emoji -config ~/.config/rofi/rofidmenu.rasi
 
