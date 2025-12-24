@@ -8,8 +8,6 @@ vim.opt.softtabstop = 2
 vim.opt.conceallevel = 2
 vim.opt.concealcursor = 'nc'
 
--- Set the colorscheme to retrobox
-vim.cmd.colorscheme "retrobox"
 
 -- Disable swap files
 vim.opt.swapfile = false
@@ -84,3 +82,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank()
   end,
 })
+
+vim.keymap.set('n','<leader>lt', function ()
+  vim.cmd(":0r ~/Templates/latex_template.tex")
+end, { desc = "Insert LaTeX template to the buffer" })

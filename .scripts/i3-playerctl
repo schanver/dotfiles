@@ -1,0 +1,102 @@
+#!/bin/bash
+
+CACHE_DIR="$HOME/.cache/i3block-playerctl"
+mkdir -p "$CACHE_DIR"
+
+PLAYER_PATH="$CACHE_DIR/active-player"
+SHOWNAME_PATH="$CACHE_DIR/showname"
+
+# Players in priority/cycle order (use prefixes)
+players=("spotify" "zen" "mpv" "mpd" "firefox" "chromium")
+
+# Read saved state
+showname=$([ -f "$SHOWNAME_PATH" ] && cat "$SHOWNAME_PATH" || echo 0)
+active_player=$([ -f "$PLAYER_PATH" ] && cat "$PLAYER_PATH" || echo "")
+
+# Get list of running players
+running_players=($(playerctl -l 2>/dev/null))
+
+# Check if active player is still valid
+if ! printf '%s\n' "${running_players[@]}" | grep -qx "$active_player"; then
+  for p in "${players[@]}"; do
+    for rp in "${running_players[@]}"; do
+      if [[ "$rp" == "$p"* ]]; then
+        active_player="$rp"
+        echo "$active_player" > "$PLAYER_PATH"
+        break 2
+      fi
+    done
+  done
+fi
+
+# Mouse actions
+case $BLOCK_BUTTON in
+  1) playerctl -p "$active_player" play-pause >/dev/null ;;
+  2) playerctl -p "$active_player" stop >/dev/null ;;
+  3)
+    showname=$((!showname))
+    echo "$showname" > "$SHOWNAME_PATH"
+
+    # Cycle to next available player
+    if [ ${#running_players[@]} -gt 1 ]; then
+      for i in "${!players[@]}"; do
+        if [[ "${active_player}" == "${players[$i]}"* ]]; then
+          for offset in $(seq 1 ${#players[@]}); do
+            next_index=$(( (i + offset) % ${#players[@]} ))
+            candidate_prefix="${players[$next_index]}"
+            for rp in "${running_players[@]}"; do
+              if [[ "$rp" == "$candidate_prefix"* ]]; then
+                active_player="$rp"
+                echo "$active_player" > "$PLAYER_PATH"
+                break 3
+              fi
+            done
+          done
+        fi
+      done
+    fi
+    ;;
+  4) playerctl -p "$active_player" previous >/dev/null ;;
+  5) playerctl -p "$active_player" next >/dev/null ;;
+esac
+
+# Icons for each player prefix
+declare -A icons=(
+  [spotify]=" "
+  [zen]="🌐 "
+  [mpv]="🎞 "
+  [rmpc]=" "
+  [firefox]="🦊 "
+  [chromium]="🌐 "
+)
+
+# Fetch metadata
+status=$(playerctl -p "$active_player" status 2>/dev/null)
+title=$(playerctl -p "$active_player" metadata title 2>/dev/null)
+artist=$(playerctl -p "$active_player" metadata artist 2>/dev/null)
+
+output=""
+
+# Track info
+if [ "$showname" = "1" ] && [ -n "$title" ]; then
+  track="${artist:+$artist - }$title"
+  output="【${track:0:45}】"
+fi
+
+# Match icon by prefix
+icon="♪"
+for key in "${!icons[@]}"; do
+  if [[ "$active_player" == "$key"* ]]; then
+    icon="${icons[$key]}"
+    break
+  fi
+done
+
+# Add status icon
+case "$status" in
+  Playing) output+="$icon⏸ " ;;
+  Paused)  output+="$icon⏵ " ;;
+  *)       output+="$icon " ;;
+esac
+
+echo "$output"

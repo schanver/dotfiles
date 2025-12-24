@@ -5,163 +5,52 @@ return {
   },
 
   config = function()
-    local alpha = require("alpha")
-    local dashboard = require("alpha.themes.dashboard")
+local alpha = require("alpha")
+local dashboard = require("alpha.themes.dashboard")
 
-    dashboard.section.header.val = {
-       " ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡕⠁⠜⡰⡉⠀⡞⠀⠀⠀⠀⠀⠀⠀⠀⠈⣆⠀⠀⠀⠀⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿ ",
-       " ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡏⢀⣀⡾⣱⠁⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⡀⠀⠀⠀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿ ",
-       " ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃⠏⠉⡹⠑⡇⠀⣸⣀⠀⠀⠀⠀⢠⠀⠀⠀⠀⠀⡇⠀⠒⡆⣿⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿ ",
-       " ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢸⠀⢠⠃⣰⢧⢰⠛⣿⠀⠀⢠⠀⢸⡀⠀⡇⣠⡄⢰⡾⡀⢐⣿⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿ ",
-       " ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠋⠃⢸⠀⠸⡜⣵⠟⣿⣷⣿⡀⠀⢸⡆⢸⢣⡀⢷⣩⠁⢸⠁⠑⠚⢻⣿⣻⣿⣿⣿⣿⣿⣿⣿⣿⣿ ",
-       " ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠇⠀⡀⢸⠀⣏⣼⢡⣦⣿⡇⡇⠱⣄⠸⡌⢲⡾⣿⣾⣿⡀⢸⠀⠀⠀⡼⠻⣿⠏⣿⣿⣿⣿⣿⣿⣿⣿ ",
-       " ⣿⣿⣿⣿⣿⣿⣿⣿⣿⡏⠀⠀⡇⢸⠀⣇⡏⢸⣿⣿⠇⠀⠀⠈⠁⠁⢋⣤⣾⣿⠹⣷⢸⠀⢀⡜⠀⡜⢹⠀⢻⣿⣿⣿⣿⣿⣿⣿ ",
-       " ⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⢰⡀⡆⡇⠙⢄⣉⡁⠀⠀⠀⠀⠀⠀⢸⣧⣾⡟⠀⣯⡇⢠⠎⢀⠞⠀⢸⠀⢸⣿⣿⣿⣿⣿⣿⣿ ",
-       " ⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⢳⢱⡏⢠⡀⠀⠐⠀⣤⣀⡀⠀⠠⡀⠁⠉⠀⣸⣿⡴⠁⡴⠋⠀⠀⡀⠀⣾⠹⣿⣿⣿⣿⣿⣿ ",
-       " ⣿⣿⣿⣿⣿⣿⣿⣿⣿⡆⠀⠀⠀⠀⠳⣷⣀⠀⠀⠀⢸⠁⠀⢹⠀⠀⠈⠉⠙⠯⡼⢋⡴⠊⠀⠀⠀⠀⡇⢰⡹⠀⢻⣿⣿⣿⣿⣿ ",
-       " ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠹⣿⣷⢤⡀⠦⣀⠀⢸⠀⠀⠀⠀⢀⢞⠕⠉⠀⠀⠀⠀⠀⢸⢁⢇⡇⠄⢸⣿⣿⣿⣿⣿ ",
-       " ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⢿⡿⠬⢮⡙⡶⠤⠤⠤⠤⠤⢤⡾⠁⠀⠀⠀⠀⠀⠀⠀⣎⣮⡏⣷⠀⣼⣿⣿⣿⣿⣿ ",
-       " ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡀⠀⠀⡰⠉⠒⠤⣀⣱⣗⣠⡔⠒⠒⣄⡎⠀⠀⠀⠀⠀⠀⠀⢀⣾⡿⠋⢀⡏⣰⢻⣿⣿⣿⣿⣿ ",
-       " ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⣠⠃⠐⠢⣀⢈⣟⣿⡞⠋⠑⠢⢬⡇⠀⠀⠀⠀⠀⣀⣴⣿⠋⢀⡴⣛⣟⣣⣿⣿⣿⣿⣿⣿ ",
-    }
+-- Set header
+dashboard.section.header.val = {
+    "                                                     ",
+    "  ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ",
+    "  ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║ ",
+    "  ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║ ",
+    "  ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║ ",
+    "  ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║ ",
+    "  ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ ",
+    "                                                     ",
+}
 
-    dashboard.section.header.opts.position = "center"
-    dashboard.section.footer.opts.position = "center"
-    local function button(sc, txt, leader_txt, keybind, keybind_opts)
-      local sc_after = sc:gsub("%s", ""):gsub(leader_txt, "<leader>")
+-- Set menu
+dashboard.section.buttons.val = {
+    dashboard.button( "e", "  > New file" , ":ene <BAR> startinsert <CR>"),
+    dashboard.button( "f", "  > Find file", ":cd $HOME/org/roam | Telescope find_files<CR>"),
+    dashboard.button( "r", "  > Recent"   , ":Telescope oldfiles<CR>"),
+    dashboard.button( "s", "  > Settings" , ":e $MYVIMRC | :cd %:p:h | split . | wincmd k | pwd<CR>"),
+    dashboard.button( "q", "  > Quit NVIM", ":qa<CR>"),
+}
 
-      local opts = {
-        position = "center",
-        shortcut = sc,
-        cursor = 5,
-        width = 50,
-        align_shortcut = "right",
-        hl = "AlphaButton",
-        hl_shortcut = "AlphaAttr",
-      }
+-- Set footer
+--   NOTE: This is currently a feature in my fork of alpha-nvim (opened PR #21, will update snippet if added to main)
+--   To see test this yourself, add the function as a dependecy in packer and uncomment the footer lines
+--   ```init.lua
+--   return require('packer').startup(function()
+--       use 'wbthomason/packer.nvim'
+--       use {
+--           'goolord/alpha-nvim', branch = 'feature/startify-fortune',
+--           requires = {'BlakeJC94/alpha-nvim-fortune'},
+--           config = function() require("config.alpha") end
+--       }
+--   end)
+--   ```
+-- local fortune = require("alpha.fortune") 
+-- dashboard.section.footer.val = fortune()
 
-      if nil == keybind then
-        keybind = sc_after
-      end
-      keybind_opts = vim.F.if_nil(keybind_opts, { noremap = true, silent = true, nowait = true })
-      opts.keymap = { "n", sc_after, keybind, keybind_opts }
+-- Send config to alpha
+alpha.setup(dashboard.opts)
 
-      local function on_press()
-        -- local key = vim.api.nvim_replace_termcodes(keybind .. '<Ignore>', true, false, true)
-        local key = vim.api.nvim_replace_termcodes(sc_after .. "<Ignore>", true, false, true)
-        vim.api.nvim_feedkeys(key, "t", false)
-      end
-
-      return {
-        type = "button",
-        val = txt,
-        on_press = on_press,
-        opts = opts,
-      }
-    end
-    local leader = " "
-    dashboard.section.buttons.val = {
-      button("space f c", "  Scheme change", leader, nil, {
-        noremap = true,
-        silent = true,
-        nowait = true,
-        callback = function()
-          require("telescope.builtin").colorscheme()
-        end,
-      }),
-      button("space f r", "  File frecency", leader, nil, {
-        noremap = true,
-        silent = true,
-        nowait = true,
-        callback = function()
-          require("telescope").extensions.frecency.frecency()
-        end,
-      }),
-      button("space f e", "󰋚  File history", leader, nil, {
-        noremap = true,
-        silent = true,
-        nowait = true,
-        callback = function()
-          require("telescope.builtin").oldfiles()
-        end,
-      }),
-      button("space f p", "  Project find", leader, nil, {
-        noremap = true,
-        silent = true,
-        nowait = true,
-        callback = function()
-          require("telescope").extensions.projects.projects({})
-        end,
-      }),
-      button("space f f", "󰈞  File find", leader, nil, {
-        noremap = true,
-        silent = true,
-        nowait = true,
-        callback = function()
-          require("telescope.builtin").find_files()
-        end,
-      }),
-      button("space f n", "  File new", leader, nil, {
-        noremap = true,
-        silent = true,
-        nowait = true,
-        callback = function()
-          vim.api.nvim_command("enew")
-        end,
-      }),
-      button("space f w", "  Word find", leader, nil, {
-        noremap = true,
-        silent = true,
-        nowait = true,
-        callback = function()
-          require("telescope.builtin").live_grep()
-        end,
-      }),
-    }
-    dashboard.section.buttons.opts.hl = "AlphaButton"
-
-    local function footer()
-      local stats = require("lazy").stats()
-      local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-      return "   Neovim"
-        .. "  󰀨  v"
-        .. vim.version().major
-        .. "."
-        .. vim.version().minor
-        .. "."
-        .. vim.version().patch
-        .. "  󰂖 "
-        .. stats.count
-        .. " plugins loaded "
-        .. ms
-        .. "ms"
-    end
-
-    dashboard.section.footer.val = footer()
-    dashboard.section.footer.opts.hl = "AlphaFooter"
-
-    local head_butt_padding = 2
-    local occu_height = #dashboard.section.header.val + 2 * #dashboard.section.buttons.val + head_butt_padding
-    local header_padding = math.max(0, math.ceil((vim.fn.winheight("$") - occu_height) * 0.25))
-    local foot_butt_padding = 1
-
-    dashboard.config.layout = {
-      { type = "padding", val = header_padding },
-      dashboard.section.header,
-      { type = "padding", val = head_butt_padding },
-      dashboard.section.buttons,
-      { type = "padding", val = foot_butt_padding },
-      dashboard.section.footer,
-    }
-
-    alpha.setup(dashboard.opts)
-
-    vim.api.nvim_create_autocmd("User", {
-      pattern = "LazyVimStarted",
-      callback = function()
-        dashboard.section.footer.val = footer()
-        pcall(vim.cmd.AlphaRedraw)
-      end,
-    })
-  end,
+-- Disable folding on alpha buffer
+vim.cmd([[
+    autocmd FileType alpha setlocal nofoldenable
+]])
+end
 }

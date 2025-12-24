@@ -6,15 +6,9 @@ return
   config = function()
     -- Setup orgmode
     require('orgmode').setup({
-      org_agenda_files = '~/notes/01 - Uni/WS24-25/uni.org',
-      org_default_notes_file = '~/notes/refile.org',
+      org_agenda_files = '~/org/roam/*',
+      org_default_notes_file = '~/org/roam/'
     })
 
-    -- NOTE: If you are using nvim-treesitter with ~ensure_installed = "all"~ option
-    -- add ~org~ to ignore_install
-    -- require('nvim-treesitter.configs').setup({
-    --   ensure_installed = 'all',
-    --   ignore_install = { 'org' },
-    -- })
   end,
 }
