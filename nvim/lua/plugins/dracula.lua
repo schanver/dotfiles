@@ -60,7 +60,7 @@ return {
         ['bufferline.nvim'] = true,
       }
       })
-      -- vim.cmd.colorscheme 'dracula'
+        vim.cmd.colorscheme 'dracula'
         vim.cmd.colorscheme 'dracula-soft'
     end
   },
