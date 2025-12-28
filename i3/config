@@ -243,11 +243,9 @@ bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 bindsym $mod+e exec --no-startup-id emacs
 bindsym $mod+o exec --no-startup-id kitty -e zsh -c "cd ~/org/roam/ && exec zsh"
 bindsym $mod+w exec --no-startup-id zen-browser
-bindsym $mod+n exec --no-startup-id rofi -config ~/.config/rofi/todo.rasi -modi Todo:~/.config/rofi/rofitodo.sh -show Todo
 bindsym $mod+Shift+p exec flameshot gui
 bindsym Print exec flameshot gui
 bindsym $mod+s exec --no-startup-id ~/dotfiles/.scripts/timewarrior 
-bindsym $mod+p exec --no-startup-id astah-pro
 bindsym $mod+F10 exec --no-startup-id kitty -e rmpc
 bindsym $mod+Ctrl+a exec --no-startup-id ~/dotfiles/.scripts/toggle-conky --raise
 bindsym $mod+Ctrl+q exec --no-startup-id ~/dotfiles/.scripts/toggle-conky 
