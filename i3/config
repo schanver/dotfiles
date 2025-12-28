@@ -147,7 +147,7 @@ bindsym  --whole-window $mod+Ctrl+button1 resize set width 50 ppt height 50 ppt
 #Edit the config with a keybinding
 bindsym $mod+i exec --no-startup-id kitty -e nvim ~/.config/i3/config
 # start a terminal
-bindsym $mod+Return exec --no-startup-id kitty 
+bindsym $mod+Return exec --no-startup-id kitty --config ~/dotfiles/kitty/kitty.conf
 
 # kill focused window
 bindsym $mod+q kill
@@ -323,7 +323,7 @@ exec_always --no-startup-id /usr/bin/dunst
 exec --no-startup-id emacs --daemon
 exec --no-startup-id systemctl --user start mpd
 exec --no-startup-id mpd-mpris
-exec_always syncthing-gtk
+exec syncthing-gtk
 ##################
 # floating rules #
 ##################
@@ -416,7 +416,7 @@ bindsym $mod+d exec --no-startup-id rofi -modi drun -show drun \
 
 ## rofi bindings for window menu ($mod+t /F10 optional disabled)
 
-bindsym $mod+a exec --no-startup-id rofi -show filebrowser -config ~/.config/rofi/rofidmenu.rasi
+bindsym $mod+a exec --no-startup-id rofi -show window -config ~/.config/rofi/rofidmenu.rasi
 
 bindsym F10 exec --no-startup-id rofi -modi emoji -show emoji -config ~/.config/rofi/rofidmenu.rasi
 
