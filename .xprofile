@@ -1,0 +1,2 @@
+export XCURSOR_SIZE=35
+[ -f ~/.Xresources ] && xrdb -merge ~/.Xresources
