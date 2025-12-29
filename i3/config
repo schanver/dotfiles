@@ -28,12 +28,12 @@ gaps outer 3
 
 #for inserting password
 exec --no-startup-id /usr/lib/polkit-kde-authentication-agent-1
-exec --no-startup-id xss-lock -- ~/.config/i3/scripts/blur-lock
+exec --no-startup-id xss-lock -- betterlockscreen -l
 exec_always --no-startup-id xidlehook \
   --not-when-fullscreen \
   --not-when-audio \
   --timer 600 'xset dpms force off' '' \
-  --timer 1200 '~/.config/i3/scripts/blur-lock' 
+  --timer 1200 'betterlockscreen -l' ''
 
 # show window title bars (not officially supported with i3gaps)
 default_border normal
@@ -344,7 +344,6 @@ for_window [class="(?i)anki"] floating enable, move position center
 for_window [class="(?i)vlc"] floating enable, move position center
 for_window [class="mpv"]  floating enable, move position center
 for_window [class="(?i)blueman-manager"] floating enable, move position center
-for_window [class=(?i)emacs] floating enable,move position center
 for_window [class="kvantummanager"] floating enable, move position center
 
 

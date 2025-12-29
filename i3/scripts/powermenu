@@ -122,7 +122,7 @@ menu=(
   [  Shutdown]="systemctl poweroff"
   [   Reboot]="systemctl reboot"
   [   Suspend]="systemctl suspend"
-  [  Lock]="~/.config/i3/scripts/blur-lock"
+  [  Lock]="betterlockscreen -l"
   [  Logout]="i3-msg exit"
 )
 
