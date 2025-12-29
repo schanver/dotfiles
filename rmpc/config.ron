@@ -15,13 +15,6 @@
   enable_mouse: true,
   status_update_interval_ms: 1000,
   select_current_song_on_change: false,
-  album_art: (
-    method: Auto,
-    max_size_px: (width: 1200, height: 1200),
-    disabled_protocols: ["http://", "https://"],
-    vertical_align: Center,
-    horizontal_align: Center,
-  ),
   default_album_art_path: None,
   draw_borders: false,
   show_song_table_header: false,
@@ -200,10 +193,7 @@ artists: (
 tabs: [
 (
     name: "Queue",
-    pane: Split(
-      direction: Horizontal,
-      panes: [(size: "60%", pane: Pane(Queue)), (size: "40%", pane: Pane(AlbumArt))],
-    ),
+    pane: Pane(Queue),
   ),
 (
     name: "Directories",
