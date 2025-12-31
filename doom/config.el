@@ -1,7 +1,7 @@
 (setq user-full-name "schanver"
       user-mail-address "schanver@proton.me")
 
-(setq doom-theme 'doom-dracula)
+(setq doom-theme 'doom-gruvbox)
 (setq display-line-numbers-type t)
 (setq doom-font (font-spec :family "IosevkaTerm Nerd Font Mono" :size 28))
 ;(add-hook! 'doom-init-ui-hook #'doom-big-font-mode)
