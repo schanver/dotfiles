@@ -1,81 +1,121 @@
 #!/bin/bash
 
+# -------------------------------
+# CONFIG
+# -------------------------------
+WALLPAPER_DIR="$HOME/Pictures/wallpapers"
+WAL_COLORS_FILE="$HOME/.cache/wal/colors"
+TEMPLATE_FILE="$HOME/.cache/wal/templates/template.ron"
+OUTPUT_FILE="$HOME/.cache/wal/templates/pywall16.ron"
+
+# -------------------------------
+# FUNCTIONS
+# -------------------------------
+
 apply_colors() {
-colors_file="$HOME/.cache/wal/colors"
-input_file="$HOME/.cache/wal/templates/template.ron"
-output_file="$HOME/.cache/wal/templates/pywall16.ron"
+    if [[ ! -f "$WAL_COLORS_FILE" ]]; then
+        echo "Wal colors file not found: $WAL_COLORS_FILE"
+        return
+    fi
 
-# Read all 16 lines (assumes color0 to color15 are in order, one per line)
-mapfile -t colors < "$colors_file"
+    mapfile -t colors < "$WAL_COLORS_FILE"
 
-# Copy input to output first
-cp "$input_file" "$output_file"
+    if [[ ! -f "$TEMPLATE_FILE" ]]; then
+        echo "Template file not found: $TEMPLATE_FILE"
+        return
+    fi
 
-# Replace {color0} to {color15}
-for i in {0..15}; do
-    hex="${colors[$i]}"
-    sed -i "s/{color$i}/$hex/g" "$output_file"
-done
+    cp "$TEMPLATE_FILE" "$OUTPUT_FILE"
 
-echo "Applied wal colors to $output_file"
+    for i in {0..15}; do
+        hex="${colors[$i]}"
+        sed -i "s|{color$i}|$hex|g" "$OUTPUT_FILE"
+    done
+
+    echo "Applied wal colors to $OUTPUT_FILE"
 }
 
-WALLPAPER_DIR="$HOME/Pictures/wallpapers"
+preview() {
+    # Optional: implement ueberzug preview here if desired
+    # preview "$index" "$wallpaper_path"
+    :
+}
 
+cleanup() {
+    # Optional: remove ueberzug overlay
+    :
+}
+
+# -------------------------------
+# CHECK WALLPAPER DIR
+# -------------------------------
 if [[ ! -d "$WALLPAPER_DIR" ]]; then
-  echo "No wallpaper directory found!"
-  exit 1
+    echo "Wallpaper directory not found: $WALLPAPER_DIR"
+    exit 1
 fi
 
-# Find all wallpapers (full paths)
+# -------------------------------
+# RANDOM WALLPAPER
+# -------------------------------
+if [[ $1 == "random" ]]; then
+    random_wall=$(find -L "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) | shuf -n1)
+    if [[ -z "$random_wall" ]]; then
+        echo "No wallpapers found in $WALLPAPER_DIR"
+        exit 1
+    fi
+
+    wal -e -s -i "$random_wall"
+    apply_colors
+    echo "Random wallpaper set: $random_wall"
+    exit 0
+fi
+
+# -------------------------------
+# LOAD WALLPAPERS FOR ROFI
+# -------------------------------
 mapfile -t wallpapers < <(find -L "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \))
-
 if [[ ${#wallpapers[@]} -eq 0 ]]; then
-  echo "No wallpapers found!"
-  exit 1
+    echo "No wallpapers found in $WALLPAPER_DIR"
+    exit 1
 fi
 
-# Create an array of filenames for display in rofi
+# Display names for rofi
 mapfile -t names < <(printf '%s\n' "${wallpapers[@]##*/}")
 
-
-# rofi with preview via ueberzug
+# -------------------------------
+# ROFI SELECTION
+# -------------------------------
 selected=""
 while true; do
-  selected=$(printf '%s\n' "${names[@]}" | rofi -dmenu -i -p "Select wallpaper:" -config ~/dotfiles/rofi/rofidmenu.rasi)
+    selected=$(printf '%s\n' "${names[@]}" | rofi -dmenu -i -p "Select wallpaper:" -config ~/dotfiles/rofi/rofidmenu.rasi)
 
-  if [[ -z "$selected" ]]; then
-    # no selection or ESC pressed, exit loop
+    [[ -z "$selected" ]] && break
+
+    for i in "${!names[@]}"; do
+        if [[ "${names[i]}" == "$selected" ]]; then
+            preview "$i" "${wallpapers[i]}"
+            break
+        fi
+    done
+
     break
-  fi
-
-  # find index of selected wallpaper
-  for i in "${!names[@]}"; do
-    if [[ "${names[i]}" == "$selected" ]]; then
-      preview "$i" "${wallpapers[i]}"
-      break
-    fi
-  done
-
-  # Confirm selection by pressing Enter (selected != "")
-  # Here, we break and apply the wallpaper
-  break
 done
 
-# Clean up ueberzug
 cleanup
 
+# -------------------------------
+# APPLY SELECTED WALLPAPER
+# -------------------------------
 if [[ -n "$selected" ]]; then
-  # Find full path of selected wallpaper
-  for i in "${!names[@]}"; do
-    if [[ "${names[i]}" == "$selected" ]]; then
-      wal -e -s -i "${wallpapers[i]}" 
-      #feh --bg-scale "${wallpapers[i]}"
-      echo "Selected wallpaper: ${wallpapers[i]}"
-      apply_colors
-      exit 0
-    fi
-  done
+    for i in "${!names[@]}"; do
+        if [[ "${names[i]}" == "$selected" ]]; then
+            wal -e -s -i "${wallpapers[i]}"
+            # feh --bg-scale "${wallpapers[i]}"  # optional fallback
+            apply_colors
+            echo "Selected wallpaper: ${wallpapers[i]}"
+            exit 0
+        fi
+    done
 fi
 
 echo "No wallpaper selected."
