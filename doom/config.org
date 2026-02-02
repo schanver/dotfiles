@@ -82,17 +82,19 @@ Basic configuration:
 
   ;; Org-roam capture templates
   (setq org-roam-capture-templates
-        '(("d" "default" plain "%?"
-           :target (file+head "${slug}.org"
-                              "#+title: ${title}\n#+date: %U\n\n")
+        '(
+          ("T" "Thought/Fleeting Note" plain
+           "%?"
+           :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+                              "#+title: ${title}\n#+filetags: :thoughts:%^{Topic}:\n#+date: %U\n")
            :unnarrowed t)
+          
+          ("p" "private" plain "%?"
+           :target (file+head "$private/${slug}.org"
+                              "#+title: ${title}\n#+filetags: private\n\n")
+           :unarrowed nil)
 
-          ("b" "books" plain "%?"
-           :target (file+head "${slug}.org"
-                              "#+title: ${title}\n#+filetags: books\n\n")
-           :unnarrowed t)
-
-          ("p" "programming" plain "%?"
+          ("c" "programming" plain "%?"
            :target (file+head "${slug}.org"
                               "#+title: ${title}\n#+filetags: programming\n\n")
            :unnarrowed t)
@@ -110,6 +112,38 @@ Basic configuration:
           ("m" "modules" plain "%?"
            :target (file+head "${slug}.org"
                               "#+title: ${title}\n#+filetags: uni \n\n* Modulinformation\n** Lehrer:\n** Email:\n** Moodle:\n\n* Termine und Aufgaben\n** Notizen\n")
+           :unnarrowed t)
+          
+          ("t" "Trackers")
+          
+          ("tb" "Book Entry" plain
+           "** ${title}\n:PROPERTIES:\n:STATUS: %^{Status|ON LIST|READING|FINISHED|DROPPED}\n:AUTHOR: %^{Author}\n:GENRE: %^{Genre}\n:PAGES_READ: %^{Pages Read}\n:TOTAL_PAGES: %^{Total Pages}\n:RATING: %^{Rating}\n:ADDED: %U\n:END:\n%?"
+           :target (file+head "trackers/book_list.org"
+                              "#+title: Books\n#+filetags: :tracker:books:\n\n")
+           :unnarrowed t)
+
+          ("tf" "Film Entry" plain
+           "** ${title}\n:PROPERTIES:\n:STATUS: %^{Status|WATCHLIST|WATCHED/DROPPED}\n:DIRECTOR: %^{Director}\n:^{}WATCH_DATE: %^{Watch Date}\n:RATING: %^{Rating} \n:ADDED: %U\n:END:\n%?"
+           :target (file+head "trackers/film_list.org"
+                              "#+title: Films\n#+filetags: :tracker:films:\n\n")
+           :unnarrowed t)
+
+          ("ts" "TV Series Entry" plain
+           "** ${title}\n:PROPERTIES:\n:STATUS: %^{Status|WATCHLIST|WATCHING|WATCHED|DROPPED| ON HOLD} \n:EPISODES: %^{Total Episodes}\n:WATCHED: %^{Episodes Watched}^{}\n:ADDED: %U\n:END:\n%?"
+           :target (file+head "trackers/series_list.org"
+                              "#+title: TV Series\n#+filetags: :tracker:series:\n\n")
+           :unnarrowed t)
+
+          ("tg" "Game Entry" plain
+           "** ${title}\n:PROPERTIES:\n:STATUS: %^{Status|BACKLOG|PLAYING|COMPLETED} \n:PLATFORM: %^{Platform}\n:GENRE: %^{Genre}\n:ADDED: %U\n:END:\n%?"
+           :target (file+head "trackers/game_list.org"
+                              "#+title: Games\n#+filetags: :tracker:games:\n\n")
+           :unnarrowed t)
+
+          ;; Inbox for quick capture
+          ("i" "Inbox" plain
+           "* TODO %?\n:PROPERTIES:\n:ADDED: %U\n:END:\n"
+           :target (file "inbox.org")
            :unnarrowed t)))
 
   ;; Enable Org-roam database autosync
@@ -256,4 +290,24 @@ Keybindings:
 * Org Logbook
 #+begin_src emacs-lisp
 (setq org-log-into-drawer t)
+#+end_src
+* Dashboard
+#+begin_src emacs-lisp
+(setq org-agenda-custom-commands
+      '(("d" "Dashboard"
+         ((tags "STATUS=\"WATCHLIST\""
+                ((org-agenda-overriding-header "🎬 Films to Watch")
+                 (org-agenda-files '("~/org/roam/trackers/film_list.org"))
+                 (org-agenda-prefix-format "  %-12:c %s")))
+          (tags "STATUS=\"READING\"|STATUS=\"ON LIST\""
+                ((org-agenda-overriding-header "📚 Books to Read")
+                 (org-agenda-files '("~/org/roam/trackers/book_list.org"))
+                 (org-agenda-prefix-format "  %-12(org-entry-get nil \"STATUS\") ")))
+          (tags "STATUS=\"PLAYING\""
+                ((org-agenda-overriding-header "🎮 Games - Currently Playing")
+                 (org-agenda-files '("~/org/roam/trackers/game_list.org"))
+                 (org-agenda-prefix-format "  %-12(org-entry-get nil \"STATUS\") ")))
+          (tags "CATEGORY=\"inbox\""
+                ((org-agenda-overriding-header "📥 Inbox")
+                 (org-agenda-files '("~/org/roam/inbox.org"))))))))
 #+end_src

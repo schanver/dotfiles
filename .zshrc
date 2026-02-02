@@ -25,6 +25,7 @@ source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 export EDITOR="nvim"
 export PATH="$HOME/.scripts:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$PATH:/home/f/.local/bin"
 
 # Aliases 
 
@@ -62,6 +63,8 @@ alias tms="tmux switch-client -t $1"
 alias ta="tmux attach -t $1"
 alias tm="tmux new -As $1"
 alias p3="python3"
+alias ync="yay -S --noconfirm"
+alias vpn="bash ~/vpn.sh"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
@@ -69,3 +72,8 @@ export SDKMAN_DIR="$HOME/.sdkman"
 
 eval "$(zoxide init zsh)"
 
+#compdef mov-cli
+_mov_cli_completion() {
+  eval $(env _TYPER_COMPLETE_ARGS="${words[1,$CURRENT]}" _MOV_CLI_COMPLETE=complete_zsh mov-cli)
+}
+compdef _mov_cli_completion mov-cli
