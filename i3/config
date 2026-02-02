@@ -252,6 +252,8 @@ bindsym $mod+Ctrl+q exec --no-startup-id ~/dotfiles/.scripts/toggle-conky
 bindsym $mod+y exec --no-startup-id ~/dotfiles/.scripts/fzf-pdf
 bindsym $mod+Shift+y exec --no-startup-id ~/dotfiles/.scripts/fzf-pdf --xopp
 bindsym $mod+odiaeresis exec --no-startup-id discord
+bindsym $mod+F12 exec --no-startup-id dunstctl set-paused toggle
+
 ##########################################
 # configuration for workspace behaviour: #
 ##########################################
@@ -301,6 +303,7 @@ exec --no-startup-id picom --config  ~/.config/picom/picom.conf
 
 #start caffeine for disabling screensaver or whatever
 
+exec --no-startup-id caffeine-indicator
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id dex --autostart --environment i3 
 
@@ -313,8 +316,9 @@ exec_always --no-startup-id conky
 # uncomment the next line, use arandr to setup displays and save the file as monitor:
 # set wallpaper
 # exec --no-startup-id sleep 2 && nitrogen --restore
-exec --no-startup-id feh --bg-fill ~/dotfiles/wallpapers/galaxy.jpg
+exec --no-startup-id ~/.scripts/change_wallpaper.sh random
 bindsym $mod+z exec --no-startup-id ~/.scripts/change_wallpaper.sh 
+bindsym $mod+Shift+z exec --no-startup-id ~/.scripts/change_wallpaper.sh random
 bindsym $mod+Shift+plus exec --no-startup-id pkill pulseUI
 
 exec_always --no-startup-id /usr/bin/dunst
@@ -345,6 +349,7 @@ for_window [class="(?i)vlc"] floating enable, move position center
 for_window [class="mpv"]  floating enable, move position center
 for_window [class="(?i)blueman-manager"] floating enable, move position center
 for_window [class="kvantummanager"] floating enable, move position center
+for_window [class="(?i)pulseUI"] floating enable
 
 
 ######################################
