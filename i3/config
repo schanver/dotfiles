@@ -24,7 +24,7 @@ default_border pixel 5
 default_floating_border pixel 5
 # Set inner/outer gaps
 gaps inner 5
-gaps outer 3
+gaps outer 5
 
 #for inserting password
 exec --no-startup-id /usr/lib/polkit-kde-authentication-agent-1
@@ -277,15 +277,12 @@ set $ws10 10
 for_window[class=firefox] move container to workspace $ws3
 for_window[class=zen-browser] move container to workspace $ws3
 for_window[class=obsidian] move container to workspace $ws2
-for_window[class=Com.github.xournalpp.xournalpp] move container to workspace $ws5
-for_window[class=discord] move container to workspace $ws9
 for_window[class=TelegramDesktop] move container to workspace $ws9
 for_window[class=Spotify] move container to workspace $ws10
 for_window[class=(?i)anki] move container to workspace $ws4
 for_window[class=kitty] focus
 for_window [class=(?i)emacs] floating enable,move position center
 for_window [title="^rmpc$"] floating enable, move position center
-for_window [title="^spl$"] floating enable, move position center
 for_window [class=steam] floating enable, move position center
 
 # Scratchpad Config
@@ -309,6 +306,8 @@ exec --no-startup-id dex --autostart --environment i3
 
 exec_always --no-startup-id nm-applet --indicator 
 exec_always --no-startup-id blueman-applet 
+exec_always --no-startup-id caffeine
+exec --no-startup-id gammastep-indicator
 # start conky:
 exec_always --no-startup-id conky
 
@@ -321,7 +320,7 @@ bindsym $mod+z exec --no-startup-id ~/.scripts/change_wallpaper.sh
 bindsym $mod+Shift+z exec --no-startup-id ~/.scripts/change_wallpaper.sh random
 bindsym $mod+Shift+plus exec --no-startup-id pkill pulseUI
 
-exec_always --no-startup-id /usr/bin/dunst
+exec --no-startup-id /usr/bin/dunst
 exec --no-startup-id emacs --daemon
 exec --no-startup-id systemctl --user start mpd
 exec --no-startup-id mpd-mpris
