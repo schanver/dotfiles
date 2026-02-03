@@ -117,33 +117,33 @@ Basic configuration:
           ("t" "Trackers")
           
           ("tb" "Book Entry" plain
-           "** ${title}\n:PROPERTIES:\n:STATUS: %^{Status|ON LIST|READING|FINISHED|DROPPED}\n:AUTHOR: %^{Author}\n:GENRE: %^{Genre}\n:PAGES_READ: %^{Pages Read}\n:TOTAL_PAGES: %^{Total Pages}\n:RATING: %^{Rating}\n:ADDED: %U\n:END:\n%?"
-           :target (file+head "trackers/book_list.org"
+           "** ${title}\n:PROPERTIES:\n:STATUS: %^{Status|ON LIST|READING|FINISHED|DROPPED}\n:AUTHOR: %^{Author}\n:GENRE: %^{Genre}\n:PAGES_READ: %^{Pages Read}\n:TOTAL_PAGES: %^{Total Pages}\n:RATING: %^{Rating}\n:END:\n%?"
+           :target (file+tail "trackers/book_list.org"
                               "#+title: Books\n#+filetags: :tracker:books:\n\n")
            :unnarrowed t)
 
           ("tf" "Film Entry" plain
-           "** ${title}\n:PROPERTIES:\n:STATUS: %^{Status|WATCHLIST|WATCHED/DROPPED}\n:DIRECTOR: %^{Director}\n:^{}WATCH_DATE: %^{Watch Date}\n:RATING: %^{Rating} \n:ADDED: %U\n:END:\n%?"
-           :target (file+head "trackers/film_list.org"
+           "** ${title}\n:PROPERTIES:\n:STATUS: %^{Status|WATCHLIST|WATCHED|DROPPED}\n:DIRECTOR: %^{Director}\n:^{}WATCH_DATE: %^{Watch Date}\n:RATING: %^{Rating} \n:END:\n%?"
+           :target (file+tail "trackers/film_list.org"
                               "#+title: Films\n#+filetags: :tracker:films:\n\n")
            :unnarrowed t)
 
           ("ts" "TV Series Entry" plain
-           "** ${title}\n:PROPERTIES:\n:STATUS: %^{Status|WATCHLIST|WATCHING|WATCHED|DROPPED| ON HOLD} \n:EPISODES: %^{Total Episodes}\n:WATCHED: %^{Episodes Watched}^{}\n:ADDED: %U\n:END:\n%?"
-           :target (file+head "trackers/series_list.org"
+           "** ${title}\n:PROPERTIES:\n:STATUS: %^{Status|WATCHLIST|WATCHING|WATCHED|DROPPED| ON HOLD} \n:EPISODES: %^{Total Episodes}\n:WATCHED: %^{Episodes Watched}^{}\n:END:\n%?"
+           :target (file+tail "trackers/series_list.org"
                               "#+title: TV Series\n#+filetags: :tracker:series:\n\n")
            :unnarrowed t)
 
           ("tg" "Game Entry" plain
-           "** ${title}\n:PROPERTIES:\n:STATUS: %^{Status|BACKLOG|PLAYING|COMPLETED} \n:PLATFORM: %^{Platform}\n:GENRE: %^{Genre}\n:ADDED: %U\n:END:\n%?"
-           :target (file+head "trackers/game_list.org"
+           "** ${title}\n:PROPERTIES:\n:STATUS: %^{Status|BACKLOG|PLAYING|COMPLETED} \n:PLATFORM: %^{Platform}\n:GENRE: %^{Genre}\n:END:\n%?"
+           :target (file+tail "trackers/game_list.org"
                               "#+title: Games\n#+filetags: :tracker:games:\n\n")
            :unnarrowed t)
 
           ;; Inbox for quick capture
           ("i" "Inbox" plain
-           "* TODO %?\n:PROPERTIES:\n:ADDED: %U\n:END:\n"
-           :target (file "inbox.org")
+           "* TODO %?\n:PROPERTIES:\n:END:\n"
+           :target (file+tail "inbox.org")
            :unnarrowed t)))
 
   ;; Enable Org-roam database autosync
