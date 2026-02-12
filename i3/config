@@ -306,7 +306,6 @@ exec --no-startup-id dex --autostart --environment i3
 
 exec_always --no-startup-id nm-applet --indicator 
 exec_always --no-startup-id blueman-applet 
-exec_always --no-startup-id caffeine
 exec --no-startup-id gammastep-indicator
 # start conky:
 exec_always --no-startup-id conky

@@ -77,3 +77,6 @@ _mov_cli_completion() {
   eval $(env _TYPER_COMPLETE_ARGS="${words[1,$CURRENT]}" _MOV_CLI_COMPLETE=complete_zsh mov-cli)
 }
 compdef _mov_cli_completion mov-cli
+
+# Created by `pipx` on 2026-02-08 21:57:04
+export PATH="$PATH:$HOME/.local/bin"

@@ -10,6 +10,7 @@
 
 (use-package! org-modern
   :hook (org-mode . org-modern-mode)
+        (org-agenda-finalize . org-modern-agenda)
   :config
   (setq org-modern-block-fringe nil
         org-modern-block-name '("⎡" . "⎦") ;; visual replacement for #+begin_ and #+end_
@@ -48,15 +49,14 @@
 
   ;; Org-roam capture templates
   (setq org-roam-capture-templates
-        '(
-          ("T" "Thought/Fleeting Note" plain
+        '(("T" "Thought/Fleeting Note" plain
            "%?"
-           :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+           :target (file+head "%<%Y%m%d%H%M%S>-%^{File name}.org"
                               "#+title: ${title}\n#+filetags: :thoughts:%^{Topic}:\n#+date: %U\n")
            :unnarrowed t)
-          
+
           ("p" "private" plain "%?"
-           :target (file+head "$private/${slug}.org"
+           :target (file+head "private/%^{File Name}.org"
                               "#+title: ${title}\n#+filetags: private\n\n")
            :unarrowed nil)
 
@@ -66,9 +66,9 @@
            :unnarrowed t)
 
           ("w" "writings" plain "%?"
-           :target (file+head "${slug}.org"
+           :target (file+head "%^{filename}.org"
                               "#+title: ${title}\n#+filetags: writings\n\n")
-           :unnarrowed t)
+           :unnarrowed nil)
 
           ("u" "university notes" plain "%?"
            :target (file+head "${slug}.org"
@@ -79,9 +79,14 @@
            :target (file+head "${slug}.org"
                               "#+title: ${title}\n#+filetags: uni \n\n* Modulinformation\n** Lehrer:\n** Email:\n** Moodle:\n\n* Termine und Aufgaben\n** Notizen\n")
            :unnarrowed t)
-          
+
           ("t" "Trackers")
-          
+
+          ("tw" "Workout Logs" plain
+           (file "~/org/roam/templates/training-log.org")
+           :target (file+head "gym_entries.org" "#+title: gym entries")
+           :unnarrowed t)
+
           ("tb" "Book Entry" plain
            "** ${title}\n:PROPERTIES:\n:STATUS: %^{Status|ON LIST|READING|FINISHED|DROPPED}\n:AUTHOR: %^{Author}\n:GENRE: %^{Genre}\n:PAGES_READ: %^{Pages Read}\n:TOTAL_PAGES: %^{Total Pages}\n:RATING: %^{Rating}\n:END:\n%?"
            :target (file+tail "trackers/book_list.org"
@@ -89,27 +94,24 @@
            :unnarrowed t)
 
           ("tf" "Film Entry" plain
-           "** ${title}\n:PROPERTIES:\n:STATUS: %^{Status|WATCHLIST|WATCHED|DROPPED}\n:DIRECTOR: %^{Director}\n:^{}WATCH_DATE: %^{Watch Date}\n:RATING: %^{Rating} \n:END:\n%?"
-           :target (file+tail "trackers/film_list.org"
-                              "#+title: Films\n#+filetags: :tracker:films:\n\n")
+           (file "~/org/roam/templates/film_entry_template.org")
+           :target (file+head "trackers/film_list.org" "")
            :unnarrowed t)
 
           ("ts" "TV Series Entry" plain
-           "** ${title}\n:PROPERTIES:\n:STATUS: %^{Status|WATCHLIST|WATCHING|WATCHED|DROPPED| ON HOLD} \n:EPISODES: %^{Total Episodes}\n:WATCHED: %^{Episodes Watched}^{}\n:END:\n%?"
-           :target (file+tail "trackers/series_list.org"
-                              "#+title: TV Series\n#+filetags: :tracker:series:\n\n")
+           (file "~/org/roam/templates/series_entry_template.org")
+           :target (file+head "trackers/series_list.org" "")
            :unnarrowed t)
 
           ("tg" "Game Entry" plain
            "** ${title}\n:PROPERTIES:\n:STATUS: %^{Status|BACKLOG|PLAYING|COMPLETED} \n:PLATFORM: %^{Platform}\n:GENRE: %^{Genre}\n:END:\n%?"
-           :target (file+tail "trackers/game_list.org"
-                              "#+title: Games\n#+filetags: :tracker:games:\n\n")
+           :target (file+head "trackers/game_list.org" "")
            :unnarrowed t)
 
           ;; Inbox for quick capture
           ("i" "Inbox" plain
            "* TODO %?\n:PROPERTIES:\n:END:\n"
-           :target (file+tail "inbox.org")
+           :target (file+head "inbox.org" "#+title: Inbox\n")
            :unnarrowed t)))
 
   ;; Enable Org-roam database autosync
@@ -241,7 +243,11 @@
          ((tags "STATUS=\"WATCHLIST\""
                 ((org-agenda-overriding-header "🎬 Films to Watch")
                  (org-agenda-files '("~/org/roam/trackers/film_list.org"))
-                 (org-agenda-prefix-format "  %-12:c %s")))
+                 (org-agenda-prefix-format "  %-12(org-entry-get nil \"STATUS\") ")))
+          (tags "STATUS=\"WATCHLIST\"|STATUS=\"WATCHING\""
+                ((org-agenda-overriding-header "📺 Series - to Watch")
+                 (org-agenda-files '("~/org/roam/trackers/series_list.org"))
+                 (org-agenda-prefix-format "  %-12(org-entry-get nil \"STATUS\") ")))
           (tags "STATUS=\"READING\"|STATUS=\"ON LIST\""
                 ((org-agenda-overriding-header "📚 Books to Read")
                  (org-agenda-files '("~/org/roam/trackers/book_list.org"))
@@ -252,4 +258,13 @@
                  (org-agenda-prefix-format "  %-12(org-entry-get nil \"STATUS\") ")))
           (tags "CATEGORY=\"inbox\""
                 ((org-agenda-overriding-header "📥 Inbox")
-                 (org-agenda-files '("~/org/roam/inbox.org"))))))))
+                 (org-agenda-files '("~/org/roam/inbox.org"))))
+          (tags "CATEGORY=\"shopping\""
+                ((org-agenda-overriding-header "🛍️ Shopping List")
+                 (org-agenda-files '("~/org/roam/shopping_list.org"))))
+          ))))
+
+(add-hook! 'org-roam-capture-new-node-hook
+  (let ((filename (buffer-file-name)))
+    (when (and filename (string-match "trackers/.*_list.org" filename))
+      (org-columns))))
