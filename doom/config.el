@@ -1,9 +1,9 @@
 (setq user-full-name "schanver"
       user-mail-address "schanver@proton.me")
 
-(setq doom-theme 'doom-gruvbox)
+(setq doom-theme 'doom-dracula)
 (setq display-line-numbers-type t)
-(setq doom-font (font-spec :family "IosevkaTerm Nerd Font Mono" :size 28))
+(setq doom-font (font-spec :family "IosevkaTerm Nerd Font Mono" :size 23))
 ;(add-hook! 'doom-init-ui-hook #'doom-big-font-mode)
 (setq org-hide-emphasis-markers t)
 (setq-default evil-conceal-level 3)
@@ -29,7 +29,7 @@
 (use-package! org-alert
   :ensure t)
 
-(setq org-download-image-dir "~/org/roam/attachments/")
+(setq-default org-download-image-dir "~/org/roam/attachments/")
 
 (setq org-roam-node-display-template
       (concat (propertize "${tags:30} " 'face '(:foreground "green" :weight bold))
@@ -104,13 +104,13 @@
            :unnarrowed t)
 
           ("tg" "Game Entry" plain
-           "** ${title}\n:PROPERTIES:\n:STATUS: %^{Status|BACKLOG|PLAYING|COMPLETED} \n:PLATFORM: %^{Platform}\n:GENRE: %^{Genre}\n:END:\n%?"
-           :target (file+head "trackers/game_list.org" "")
+           "** %^{Title}\n:PROPERTIES:\n:STATUS: %^{Status|BACKLOG|PLAYING|COMPLETED}\n:PLATFORM: %^{Platform}\n:GENRE: %^{Genre}\n:RATING:\n:ADDED: %U\n:END:\n%?"
+           :target (file+head "trackers/game_list.org" "#+title: Games\n#+filetags: :tracker:games:\n\n")
            :unnarrowed t)
 
           ;; Inbox for quick capture
           ("i" "Inbox" plain
-           "* TODO %?\n:PROPERTIES:\n:END:\n"
+           "\n* %?\n"
            :target (file+head "inbox.org" "#+title: Inbox\n")
            :unnarrowed t)))
 
@@ -244,11 +244,11 @@
                 ((org-agenda-overriding-header "🎬 Films to Watch")
                  (org-agenda-files '("~/org/roam/trackers/film_list.org"))
                  (org-agenda-prefix-format "  %-12(org-entry-get nil \"STATUS\") ")))
-          (tags "STATUS=\"WATCHLIST\"|STATUS=\"WATCHING\""
+          (tags "STATUS=\"WATCHING\""
                 ((org-agenda-overriding-header "📺 Series - to Watch")
                  (org-agenda-files '("~/org/roam/trackers/series_list.org"))
                  (org-agenda-prefix-format "  %-12(org-entry-get nil \"STATUS\") ")))
-          (tags "STATUS=\"READING\"|STATUS=\"ON LIST\""
+          (tags "STATUS=\"READING\""
                 ((org-agenda-overriding-header "📚 Books to Read")
                  (org-agenda-files '("~/org/roam/trackers/book_list.org"))
                  (org-agenda-prefix-format "  %-12(org-entry-get nil \"STATUS\") ")))
@@ -262,9 +262,8 @@
           (tags "CATEGORY=\"shopping\""
                 ((org-agenda-overriding-header "🛍️ Shopping List")
                  (org-agenda-files '("~/org/roam/shopping_list.org"))))
+          (tags "STATUS=\"APPLIED\""
+                ((org-agenda-overriding-header "📖 Ongoing Applications")
+                (org-agenda-files '("~/org/roam/private/application_tracker.org"))
+                (org-agenda-prefix-format "  %-35(org-entry-get nil \"COMPANY\") ")))
           ))))
-
-(add-hook! 'org-roam-capture-new-node-hook
-  (let ((filename (buffer-file-name)))
-    (when (and filename (string-match "trackers/.*_list.org" filename))
-      (org-columns))))

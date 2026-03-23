@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+xrandr --output HDMI-A-0 --mode 3840x2160
+xrandr --output eDP --left-of HDMI-A-0
+echo "Xft.dpi: 144" | xrdb -merge
+dunstctl reload
