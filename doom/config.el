@@ -3,7 +3,7 @@
 
 (setq doom-theme 'doom-dracula)
 (setq display-line-numbers-type t)
-(setq doom-font (font-spec :family "IosevkaTerm Nerd Font Mono" :size 23))
+(setq doom-font (font-spec :family "IosevkaTerm Nerd Font Mono" :size 33))
 ;(add-hook! 'doom-init-ui-hook #'doom-big-font-mode)
 (setq org-hide-emphasis-markers t)
 (setq-default evil-conceal-level 3)
