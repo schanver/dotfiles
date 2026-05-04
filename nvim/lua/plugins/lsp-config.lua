@@ -30,6 +30,8 @@ return
         "kotlin_language_server",
         "bashls",
         "ltex",
+        "ruff",
+        "pyright"
       }
 
         for _, server in ipairs(servers) do
@@ -38,6 +40,7 @@ return
           root_markers = { ".git" },
           })
         end
+
 
       -- keymaps
       vim.keymap.set("n", "K", vim.lsp.buf.hover, {})

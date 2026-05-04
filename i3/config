@@ -247,11 +247,13 @@ bindsym $mod+Shift+p exec flameshot gui
 bindsym Print exec flameshot gui
 bindsym $mod+s exec --no-startup-id ~/dotfiles/.scripts/timewarrior 
 bindsym $mod+n exec --no-startup-id kitty -e rmpc
+bindsym $mod+m exec --no-startup-id ~/dotfiles/.scripts/monitor
 bindsym $mod+Ctrl+a exec --no-startup-id ~/dotfiles/.scripts/toggle-conky --raise
 bindsym $mod+Ctrl+q exec --no-startup-id ~/dotfiles/.scripts/toggle-conky 
+bindsym $mod+Ctrl+n exec --no-startup-id ~/dotfiles/.scripts/rmpc-controls
+bindsym $mod+Shift+n exec --no-startup-id ~/dotfiles/.scripts/rmpc-queue
 bindsym $mod+y exec --no-startup-id ~/dotfiles/.scripts/fzf-pdf
 bindsym $mod+Shift+y exec --no-startup-id ~/dotfiles/.scripts/fzf-pdf --xopp
-bindsym $mod+odiaeresis exec --no-startup-id discord
 bindsym $mod+F12 exec --no-startup-id dunstctl set-paused toggle
 
 ##########################################
@@ -300,13 +302,12 @@ exec --no-startup-id picom --config  ~/.config/picom/picom.conf
 
 #start caffeine for disabling screensaver or whatever
 
-exec --no-startup-id caffeine-indicator
+exec --no-startup-id caffeine
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id dex --autostart --environment i3 
 
 exec_always --no-startup-id nm-applet --indicator 
 exec_always --no-startup-id blueman-applet 
-exec_always --no-startup-id caffeine
 exec --no-startup-id gammastep-indicator
 # start conky:
 exec_always --no-startup-id conky

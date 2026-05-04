@@ -7,7 +7,7 @@ PLAYER_PATH="$CACHE_DIR/active-player"
 SHOWNAME_PATH="$CACHE_DIR/showname"
 
 # Players in priority/cycle order (use prefixes)
-players=("spotify" "zen" "mpv" "mpd" "firefox" "chromium")
+players=("zen" "mpv" "mpd" "firefox" "chromium")
 
 # Read saved state
 showname=$([ -f "$SHOWNAME_PATH" ] && cat "$SHOWNAME_PATH" || echo 0)
