@@ -18,6 +18,6 @@ tag=$(timew | grep "Tracking" | awk '{print $2}')
 elapsed=$(timew | grep "Total" | awk '{print $2}')
 
 # Display
-echo "  $tag ($elapsed)"
-echo "  $tag ($elapsed)"
+echo " $tag ($elapsed)"
+echo " $tag ($elapsed)"
 echo "#00ff00"

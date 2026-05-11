@@ -1,19 +1,19 @@
 #!/bin/bash 
 
 CATEGORIES=(
-  "PROGRAMMING"
-  "GAMING"
-  "STUDYING"
-  "FINISH"
-  "YOUTUBE"
-  "LECTURES"
+  "programming"
+  "gaming"
+  "studying"
+  "finish"
+  "youtube"
+  "lectures"
 )
 
 selected=$(printf "%s\n" "${CATEGORIES[@]}" | rofi -dmenu -i -p "Select" \
   -theme ~/.config/rofi/timew.rasi)
 [[ -z "$selected" ]] && exit 0
 
-if [[ "$selected" == "FINISH" ]]; then
+if [[ "$selected" == "finish" ]]; then
   timew stop
   tmux set -g status-right ""
 else 

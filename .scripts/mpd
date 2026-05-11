@@ -49,7 +49,7 @@ output=""
 if [ "$showname" = "1" ]; then
     track=$(playerctl -p "$active_player" metadata xesam:title 2>/dev/null \
         || mpc current | sed 's/.* - //')
-    [ -n "$track" ] && output="【${track:0:45}】"
+    [ -n "$track" ] && output="【${track:0:20}】"
 fi
 
 case "$status" in

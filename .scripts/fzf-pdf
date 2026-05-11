@@ -1,6 +1,6 @@
 #!/usr/bin/env bash 
 
-FILE=$(find ~/org/ws25-26 -type f -name "*.pdf" 2>/dev/null| rofi -dmenu -i -p "Open PDF:" -config ~/dotfiles/rofi/rofidmenu.rasi)
+FILE=$(find ~/org/ss26 -type f -name "*.pdf" 2>/dev/null| rofi -dmenu -i -p "Open PDF:" -config ~/dotfiles/rofi/rofidmenu.rasi)
 if [[ $1 == "--xopp" ]]; then
   [ -n "$FILE" ] && xournalpp "$FILE" 2>/dev/null
 else 
